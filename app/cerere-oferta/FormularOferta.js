@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CheckCircle, WarningCircle } from "@phosphor-icons/react/dist/ssr";
 import { trimiteCerere } from "./actions";
@@ -56,12 +56,32 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
   const confirmare = useRef(null);
   const inputPoze = useRef(null);
   const inputPlan = useRef(null);
+  const ghid = useRef(null);
+  const coloanaCampuri = useRef(null);
+  const ghidAtins = useRef(false);
 
   const tip = domeniu === "o-camera" ? mobila[0] : null;
   const campuri = campuriDimensiuni({ domeniu, tip, forma, nrPereti });
   const arataPlan = cerePlan(domeniu, tip);
   const totalFisiere = poze.reduce((s, f) => s + f.size, 0) + (arataPlan && plan ? plan.size : 0);
   const pestePrag = totalFisiere > limiteFisiere.mbTotal * MB;
+
+  // Ghidul „Cum măsor?” e închis implicit. Pe ecrane late, unde stă lângă câmpuri, se deschide
+  // singur doar dacă încape în înălțimea câmpurilor (nu lungește pagina). Rulează înainte de
+  // afișare, deci nu se vede nicio clipire; după ce omul îl deschide sau închide, nu mai intervenim.
+  const cheieCampuri = campuri.map((c) => c.nume).join(",");
+  useLayoutEffect(() => {
+    const d = ghid.current;
+    const col = coloanaCampuri.current;
+    if (!d || !col || ghidAtins.current) return;
+    const alaturat = getComputedStyle(d.parentElement).gridTemplateColumns.split(" ").length > 1;
+    if (!alaturat) {
+      d.open = false;
+      return;
+    }
+    d.open = true;
+    d.open = d.getBoundingClientRect().height <= col.getBoundingClientRect().height + 24;
+  }, [cheieCampuri]);
 
   const erori = { ...(stare.erori ?? {}), ...eroriClient };
   if (pestePrag) {
@@ -212,11 +232,6 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
           {stare.mesaj}
         </p>
       ) : null}
-
-      <p className={styles.notaObligatorii}>
-        Obligatorii sunt doar numele, telefonul și tipul de mobilă. Restul ne ajută la o estimare mai
-        exactă.
-      </p>
 
       {/* 1. Datele tale */}
       <section className={styles.sectiune} aria-labelledby="sectiune-date">
@@ -382,15 +397,12 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
           ) : null}
 
           <div className={styles.dimensiuniCuGhid}>
-            <div className={styles.dimensiuni}>
+            <div className={styles.dimensiuni} ref={coloanaCampuri}>
               {campuri.map((c) => {
                 const nume = `dim_${c.nume}`;
                 return (
                   <div key={nume} className={styles.campDimensiune}>
-                    <label htmlFor={nume}>
-                      {c.eticheta}
-                      {c.nota ? <span className={styles.optional}> ({c.nota})</span> : null}
-                    </label>
+                    <label htmlFor={nume}>{c.eticheta}</label>
                     <div className={styles.cuUnitate}>
                       <input
                         id={nume}
@@ -411,10 +423,13 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
               })}
             </div>
 
-            <aside className={styles.ghid} aria-labelledby="ghid-titlu">
-              <h3 id="ghid-titlu" className={styles.titluGhid}>
-                Cum măsori
-              </h3>
+            <details
+              ref={ghid}
+              className={styles.ghid}
+            >
+              <summary className={styles.titluGhid} onClick={() => (ghidAtins.current = true)}>
+                Cum măsor?
+              </summary>
               <SchitaPerete />
               <ul className={styles.pasiGhid}>
                 <li>Lungimea: de la un colț la celălalt, de-a lungul peretelui pe care vine mobila.</li>
@@ -425,7 +440,7 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
                 </li>
                 <li>Fă poze cu ruleta întinsă pe perete. Din ele vedem și spațiul, și dimensiunile.</li>
               </ul>
-            </aside>
+            </details>
           </div>
         </section>
       ) : null}
@@ -436,17 +451,18 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
           {arataPlan ? "Plan și poze" : "Poze ale spațiului"}{" "}
           <span className={styles.optional}>(opțional)</span>
         </h2>
-        <p id="fisiere-limita" className={styles.ajutorSectiune}>
-          {arataPlan
-            ? `Pentru mai multe camere, planul ne ajută mai mult decât dimensiunile fiecărui perete. Planul: un PDF de cel mult ${limiteFisiere.mbPdf} MB sau o imagine. `
-            : ""}
-          Pozele le micșorăm automat înainte de trimitere. Împreună, fișierele pot avea cel mult{" "}
-          {limiteFisiere.mbTotal} MB.
-        </p>
+        {arataPlan ? (
+          <p className={styles.ajutorSectiune}>
+            Pentru mai multe camere, planul ne ajută mai mult decât dimensiunile fiecărui perete.
+          </p>
+        ) : null}
 
         {arataPlan ? (
           <div className={styles.camp}>
             <label htmlFor="plan">Planul locuinței sau al spațiului</label>
+            <p id="plan-ajutor" className={styles.ajutor}>
+              Planul poate fi PDF sau o poză clară.
+            </p>
             <div className={styles.fisiere}>
               <input
                 ref={inputPlan}
@@ -457,13 +473,13 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
                 onChange={laPlan}
                 className={styles.inputFisiere}
                 aria-invalid={erori.plan ? true : undefined}
-                aria-describedby={descris("fisiere-limita", "plan-stare", erori.plan && "plan-eroare")}
+                aria-describedby={descris("plan-ajutor", "plan-stare", erori.plan && "plan-eroare")}
               />
               <span className={styles.butonFisiere} aria-hidden="true">
                 Alege planul
               </span>
               <span id="plan-stare" className={styles.stareFisiere} aria-live="polite">
-                {plan ? `${plan.name} · ${formateazaMarime(plan.size)}` : "Niciun plan ales"}
+                {plan ? plan.name : "Niciun plan ales"}
               </span>
             </div>
             {plan ? (
@@ -478,7 +494,7 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
         <div className={styles.camp}>
           <label htmlFor="poze">Poze</label>
           <p id="poze-ajutor" className={styles.ajutor}>
-            Cel mult {limiteFisiere.poze} poze. Ideal, cu ruleta întinsă pe perete.
+            Cel mult {limiteFisiere.poze} poze. Le micșorăm automat.
           </p>
           <div className={styles.fisiere}>
             <input
@@ -497,11 +513,7 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
               Alege pozele
             </span>
             <span id="poze-stare" className={styles.stareFisiere} aria-live="polite">
-              {poze.length === 0
-                ? "Nicio poză aleasă"
-                : `${poze.length === 1 ? "1 poză aleasă" : `${poze.length} poze alese`} · ${formateazaMarime(
-                    poze.reduce((s, f) => s + f.size, 0),
-                  )}`}
+              {poze.length === 0 ? "Nicio poză aleasă" : poze.length === 1 ? "1 poză aleasă" : `${poze.length} poze alese`}
             </span>
           </div>
           {poze.length ? (
@@ -512,12 +524,9 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
           <Eroare id="poze-eroare">{erori.poze}</Eroare>
         </div>
 
+        {/* Limitele exacte apar doar în mesajul de eroare, când sunt depășite. */}
         <p className={styles.total} data-camp="atasamente" tabIndex={-1} aria-live="polite">
-          {lucreaza
-            ? "Pregătim fișierele…"
-            : totalFisiere
-              ? `Atașamente: ${formateazaMarime(totalFisiere)} din ${limiteFisiere.mbTotal} MB`
-              : null}
+          {lucreaza ? "Pregătim fișierele…" : null}
         </p>
         <Eroare id="atasamente-eroare">{erori.atasamente}</Eroare>
         {stare.aveaFisiere && !poze.length && !plan ? (

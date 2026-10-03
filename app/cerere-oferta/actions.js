@@ -67,7 +67,7 @@ export async function trimiteCerere(stareAnterioara, formData) {
   for (const c of campuri) {
     const r = valideazaDimensiune(valori.dim[c.nume], c);
     if (r.eroare) erori[`dim_${c.nume}`] = r.eroare;
-    else if (r.valoare !== null) dimensiuni.push({ eticheta: c.eticheta, valoare: r.valoare });
+    else if (r.valoare !== null) dimensiuni.push({ eticheta: c.complet ?? c.eticheta, valoare: r.valoare });
   }
   if (valori.detalii.length > 3000) erori.detalii = "Detaliile au peste 3000 de caractere. Scurtează-le puțin.";
 

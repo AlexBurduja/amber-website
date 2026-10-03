@@ -400,3 +400,32 @@ Legendă: **[V]** = trebuie verificat de tine; **[i]** = doar informativ.
 - **[i] Performanță** pe /cerere-oferta: LCP 1,14s pe mobil și 0,79s pe desktop, CLS cel mult 0,024.
 - **[i] Calitate:** `npm run lint` curat, `npm run build` reușit, detectorul impeccable curat. A semnalat o bordură laterală pe nota din „Cum lucrăm”, pe care am înlocuit-o cu gestul sertarului.
 - **[i] Capturi noi în `capturi/`:** `cerere-oferta-{1440,390}.png` (gol), `cerere-oferta-bucatarie-*.png` (bucătărie în U completată), `cerere-oferta-dressing-*.png` și `cerere-oferta-toata-locuinta-*.png` (cu plan și poze).
+
+---
+
+## 14. /cerere-oferta mai scurt pe mobil
+
+- **[i] Ghidul „Cum măsor?”** e acum un `<details>`, închis implicit.
+  - **Pe desktop:** stă lângă câmpuri și se deschide singur doar dacă încape în înălțimea lor, ca să nu lungească pagina. Decizia se ia înainte de afișare, deci fără clipire, și nu se mai schimbă după ce omul l-a deschis sau închis.
+  - **De fapt:** cu câmpurile pe două coloane, ghidul (~400px) e mai înalt decât ele la toate tipurile, așa că rămâne închis și pe desktop.
+- **[i] Dimensiunile** stau câte două pe rând, la toate lățimile: Peretele A + B, Peretele C + Înălțime; la dressing Lățime + Înălțime, apoi Adâncime.
+  - **Etichete:** sunt scurte acum („Înălțime”, „Lățime”, „Adâncime”, „Insula: lungime”), ca să nu se rupă. Unde etichetele ajung totuși pe două rânduri, câmpurile se aliniază jos.
+  - **În email** rămân etichetele complete („Înălțimea până la tavan”, „Adâncimea disponibilă”), prin câmpul `complet` din `lib/cerere.js`.
+  - **Explicația pentru înălțime** („de la podea până la tavan”) e în ghid.
+- **[i] Nota „Obligatorii sunt doar…”** a fost scoasă. Rămân marcajele „(opțional)” și textul de intro.
+- **[i] Fișierele:**
+  - **Textele de ajutor nu mai au cifre:** „Cel mult 5 poze. Le micșorăm automat.” și „Planul poate fi PDF sau o poză clară.”
+  - **Contorul „Atașamente: X din 4 MB”** și mărimile de lângă fișierele alese au dispărut. În timp ce se micșorează pozele apare doar „Pregătim fișierele…”.
+  - **Limitele exacte** (2 MB pentru PDF, 4 MB în total, 5 poze) apar doar în mesajul de eroare. Validarea a rămas neschimbată.
+- **[i] Rezultat,** pentru varianta bucătărie în U cu 3 poze (înălțimea paginii):
+
+  | Lățime | Pagina înainte | Pagina după | Formularul înainte | Formularul după |
+  | --- | --- | --- | --- | --- |
+  | 390px | 5832px | 4988px (−844px, −14%) | 3456px | 2612px (−24%) |
+  | 1440px | 3256px | 2814px | 2534px | 2092px |
+
+- **[i] Teste:**
+  - 22/22 trimiteri reușite, cu emailurile verificate;
+  - toate cazurile de eroare se comportă ca înainte;
+  - lint curat, build reușit, detectorul impeccable fără probleme.
+- **[i] Capturi noi în `capturi/`:** `cerere-oferta-*` refăcute, plus `cerere-oferta-ghid-deschis-390.png`.
