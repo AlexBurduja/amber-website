@@ -147,7 +147,8 @@ export default function PaginaCategorie({ slug }) {
               ))}
             </ul>
             <p className={styles.notaPret}>
-              Prețul îl afli din ofertă, după ce ne spui ce îți trebuie.{" "}
+              Prima ofertă e estimativă, pe baza dimensiunilor și pozelor tale. Prețul final îl
+              confirmăm după măsurătorile făcute după contract.{" "}
               <Link href="/cerere-oferta" className="link">
                 Cere ofertă
               </Link>

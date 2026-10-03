@@ -17,7 +17,7 @@ import { og } from "@/lib/metadata";
 export const metadata = {
   title: "Mobilă la comandă: bucătării, dormitoare, living",
   description:
-    "Mobilă la comandă produsă în fabrica noastră din București: măsurători la fața locului, proiect 3D, producție proprie, montaj și service cu echipa noastră.",
+    "Mobilă la comandă produsă în fabrica noastră din București: ofertă estimativă din dimensiunile tale, proiect 3D, producție proprie și montaj cu echipa noastră.",
   alternates: { canonical: "/mobila-la-comanda" },
   openGraph: og("/mobila-la-comanda"),
 };
@@ -48,14 +48,31 @@ const intrebari = [
       "Noi. Tot mobilierul e realizat în fabrica noastră din București, fără subcontractori: proiectare 3D, debitare și cantuire, vopsitorie, frezare CNC, structuri metalice, printare și tapițerie.",
   },
   {
-    intrebare: "Veniți să măsurați?",
+    intrebare: "Cum se face oferta?",
     raspuns:
-      "Da, facem măsurătorile la fața locului, ca proiectul să pornească de la dimensiunile reale ale spațiului.",
+      "Pe baza datelor pe care ni le trimiți: dimensiunile aproximative, câteva poze ale spațiului și, pentru proiecte mari, planul locuinței. Din ele facem o ofertă estimativă.",
+  },
+  {
+    intrebare: "Prețul din ofertă e cel final?",
+    raspuns: [
+      "Oferta inițială e estimativă. Prețul final îl confirmăm după ce măsurăm exact spațiul, odată cu proiectul 3D.",
+      "Cu cât dimensiunile și pozele trimise sunt mai exacte, cu atât estimarea e mai aproape de prețul final.",
+    ],
+  },
+  {
+    intrebare: "Când veniți să măsurați?",
+    raspuns:
+      "După semnarea contractului. Atunci venim să măsurăm exact, iar pe baza măsurătorilor confirmăm proiectul 3D și prețul final.",
   },
   {
     intrebare: "Văd mobila înainte să fie produsă?",
     raspuns:
-      "Da. Primești proiectul 3D, cu randări și schițe, și oferta înainte de orice angajament. Mobila intră în producție doar după ce le validezi.",
+      "Da. După măsurători primești proiectul 3D, cu randări și schițe. Producția începe doar după ce îl validezi.",
+  },
+  {
+    intrebare: "Pot discuta proiectul în detaliu înainte de ofertă?",
+    raspuns:
+      "Da, te așteptăm în showroom-ul de pe Șos. Colentina 447-449, București. Acolo putem discuta în detaliu despre spațiu, materiale și finisaje.",
   },
   {
     intrebare: "Cine montează mobila?",
@@ -65,12 +82,12 @@ const intrebari = [
   {
     intrebare: "Ce informații trimit pentru o ofertă?",
     raspuns:
-      "Numele, telefonul și tipul de mobilă. Dacă ai dimensiunile spațiului și câteva poze, adaugă-le în cerere: ne ajută să înțelegem spațiul de la început.",
+      "Numele, telefonul și tipul de mobilă sunt suficiente ca să te contactăm. Pentru o ofertă estimativă mai exactă, adaugă dimensiunile aproximative și câteva poze; pentru mai multe camere sau toată locuința, planul.",
   },
   {
     intrebare: "Lucrați și în afara Bucureștiului?",
     raspuns:
-      "Da, lucrăm cu clienți din toată țara. Cererea pornește la fel, iar pentru proiectele din afara Bucureștiului stabilim împreună cum se fac măsurătorile și montajul.",
+      "Da, lucrăm cu clienți din toată țara. Oferta estimativă o primești la fel, pe baza dimensiunilor și a pozelor. Pentru proiectele din afara Bucureștiului stabilim împreună, după contract, cum se fac măsurătorile și montajul.",
   },
   {
     intrebare: "Pot vizita showroom-ul?",
@@ -93,8 +110,8 @@ export default function MobilaLaComanda() {
             aștepți și de la ce trebuie să încapă înăuntru.
           </p>
           <p>
-            Noi suntem producători: măsurăm, proiectăm în 3D, producem în fabrica noastră din
-            București și montăm cu echipa noastră. Corpurile se fac pe măsura peretelui, până la tavan
+            Noi suntem producători: proiectăm în 3D, producem în fabrica noastră din București și
+            montăm cu echipa noastră. Corpurile se fac pe măsura peretelui, până la tavan
             dacă e nevoie, iar culorile, fronturile și organizarea din interior le alegi tu.
           </p>
         </div>
@@ -140,7 +157,7 @@ export default function MobilaLaComanda() {
 
       <CumLucram
         fundal="sand"
-        intro="Pașii de mai jos sunt aceiași pentru orice tip de mobilă, de la o bucătărie la un dulap de hol."
+        intro="Pașii sunt aceiași pentru orice tip de mobilă, de la o bucătărie la un dulap de hol."
       />
 
       <section className={`container ${styles.pret}`} aria-labelledby="pret-titlu">
@@ -168,7 +185,8 @@ export default function MobilaLaComanda() {
           </div>
         </dl>
         <p className={styles.pretNota}>
-          Prețul exact îl afli din ofertă.{" "}
+          Prima ofertă e estimativă, pe baza dimensiunilor tale. Prețul final îl confirmăm după
+          măsurătorile făcute după contract.{" "}
           <Link href="/cerere-oferta" className="link">
             Cere ofertă
           </Link>

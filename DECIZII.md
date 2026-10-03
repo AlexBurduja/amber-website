@@ -319,3 +319,84 @@ Legendă: **[V]** = trebuie verificat de tine; **[i]** = doar informativ.
 
   Pe /despre, CLS era 0,128 din cauza schimbării fontului (lista de categorii se rupea altfel). L-am corectat cu o grilă fixă.
 - **Capturi noi în `capturi/`:** `acasa-1440.png`, `acasa-390.png`, `meniu-deschis-390.png` (Chromium) și `meniu-deschis-390-iphone-webkit.png`.
+
+---
+
+## 13. Procesul real de ofertă și formularul nou
+
+### Corectura de proces
+- **[i] Procesul descris peste tot:**
+  1. Clientul trimite dimensiunile aproximative, poze și, pentru proiecte mari, planul.
+  2. Primește o ofertă estimativă.
+  3. După contract venim să măsurăm exact.
+  4. Pe baza măsurătorilor se confirmă proiectul 3D și prețul final.
+  5. Urmează producția în fabrica proprie și montajul cu echipa proprie.
+- **[i] Unde e actualizat:**
+  - **„Cum lucrăm”:** 5 pași, plus o notă despre estimare și invitația în showroom.
+  - **Întrebări frecvente:** pe /mobila-la-comanda și pe toate categoriile („Prețul din ofertă e cel final?”, „Când veniți să măsurați?”, „Pot discuta proiectul în detaliu înainte de ofertă?”). Răspunsurile la „Ce informații trimit” sunt scrise pe fiecare categorie.
+  - **Notele despre preț** de pe categorii și de pe /mobila-la-comanda.
+  - **Alte pagini și secțiuni:** /despre, „În toată țara”, /cerere-oferta, „Ce urmează după ce trimiți” (3 pași: ofertă estimativă, contract și măsurători, proiect 3D și preț final), meta descrierile.
+- **[i] Ce am scos:** toate formulările care sugerau măsurători gratuite sau înainte de contract („Măsurăm la fața locului”, „Te sunăm și venim să măsurăm”, „Veniți să măsurați? Da…”, „oferta înainte de orice angajament”). Am verificat cu căutare în tot codul.
+- **[i] Ton:** spunem clar că prima ofertă e estimativă, fără să sune descurajant („cu cât datele sunt mai exacte, cu atât estimarea e mai aproape de prețul final”). Invitația în showroom apare pentru discuții în detaliu.
+- **[i] Date structurate:** am adăugat un `Service` („Mobilă la comandă”) cu procesul real în descriere și două canale: cererea online și consultanța în showroom. Showroom-ul e descris ca loc pentru consultanță în detaliu. Fără prețuri, garanție sau transport.
+
+### Formularul /cerere-oferta
+- **[i] Structura:**
+  - **Datele tale:** nume, telefon, localitate.
+  - **Ce vrei să mobilezi:** o cameră / mai multe camere / toată locuința, plus tipul de mobilă (o singură alegere pentru o cameră, mai multe în celelalte cazuri).
+  - **Dimensiuni:** doar pentru o cameră, după tip.
+  - **Plan și poze.**
+  - **Buget și detalii.**
+  - **Acord.**
+
+  Obligatorii rămân doar numele, telefonul și tipul de mobilă. Scrie asta și în capul formularului.
+- **[i] Dimensiunile, după tip:**
+  - **Bucătărie:** forma (liniară, în L, în U, cu insulă), cu schițe văzute de sus și pereții notați A/B/C, la fel ca în câmpuri. Numărul de câmpuri urmează forma; „cu insulă” are peretele A, peretele B opțional și lungimea și lățimea insulei. Plus înălțimea până la tavan.
+  - **Dressing:** lățime, înălțime, adâncime.
+  - **Dormitor, living, hol, baie:** „pe câți pereți vine mobila” (1–3), lungimea fiecăruia și înălțimea.
+  - **Comercial:** planul în loc de pereți.
+  - **Altceva:** doar detalii.
+- **[i] Validarea dimensiunilor:** sunt în cm, acceptă și zecimale cu virgulă și au limite de bun-simț. De exemplu, 25 cm pentru înălțime dă eroarea „Verifică dacă e în centimetri”.
+- **[i] Ghidul „Cum măsori”:** o schiță SVG a unui perete văzut din față (lungime, înălțime, geam, ușă, prize, țevi, distanța de la colț) și 4 indicații, inclusiv pozele cu ruleta întinsă pe perete. Pe desktop stă lângă câmpuri, pe mobil sub ele.
+- **[i] Mai multe camere sau toată locuința:** în loc de dimensiuni pe pereți se cere planul (PDF sau imagine), plus poze.
+- **[V] Bugetul orientativ** e pentru tot proiectul, în lei, cu intervalele: sub 10.000 / 10.000–20.000 / 20.000–35.000 / 35.000–60.000 / 60.000–100.000 / peste 100.000 / „Nu știu încă”.
+  - Le-am propus după prețurile obișnuite pentru mobilă la comandă în România (o bucătărie medie cade de regulă între 20.000 și 60.000 lei, o locuință întreagă trece des de 60.000).
+  - **Verifică-le cu prețurile voastre** și ajustează-le în `lib/cerere.js` (`bugete`).
+- **[i] Micșorarea pozelor în browser.**
+  - **Nu exista înainte.** Formularul trimitea pozele originale, iar limita serverului era 26 MB, prea mare pentru Vercel. Am implementat-o acum.
+  - **Pozele:** micșorate la 1600 px pe latura mare, JPEG. În test, 5 poze de telefon de 3,1–3,5 MB (16,5 MB în total) au ajuns la 958 KB.
+  - **Planurile trimise ca imagine:** micșorate la 2400 px, ca textul să rămână lizibil.
+  - **Metadatele:** reîncodarea șterge EXIF și GPS. Am scris asta și în politica de confidențialitate.
+- **[V] Limitele de mărime, ținute sub limita Vercel de ~4,5 MB pe cerere:**
+  - atașamentele împreună: cel mult 4 MB;
+  - planul PDF: cel mult 2 MB (un PDF nu se poate micșora în browser);
+  - poze: cel mult 5.
+
+  Formularul arată „Atașamente: X din 4 MB” și explică clar ce depășește, iar pe server limita e setată tot la 4,5 MB (`next.config.mjs`). Cea mai mare cerere din teste (plan PDF de 1,8 MB și 5 poze) a avut 2,7 MB.
+- **[V] Cazuri-limită rămase:**
+  - **HEIC în Chrome sau Firefox:** pozele HEIC nu se pot decoda în aceste browsere, așa că pleacă necomprimate. Safari pe iPhone le decodează, iar iOS oricum le convertește de obicei în JPEG.
+  - **Fără JavaScript:** formularul se trimite fără micșorare, iar poze mari ar depăși limita.
+
+  Ambele sunt rare. Dacă vor conta, soluția e încărcarea directă în spațiul de stocare al hosting-ului.
+- **[i] Trimiterea:**
+  - **Validare:** câmpurile obligatorii și dimensiunile se verifică în browser înainte de trimitere, cu focus pe primul câmp greșit.
+  - **Fără reset:** cererea pleacă printr-o tranziție, nu prin `action`, ca să nu mai golească React formularul după o eroare. Dacă emailul nu poate fi trimis, omul vede un mesaj clar, iar alegerile, dimensiunile, bugetul și pozele rămân completate (testat).
+  - **Fără JavaScript:** formularul merge mai departe prin `action`.
+- **[i] Emailul primit de voi:**
+  - **Conținut:** un rezumat sus (de ex. „O cameră · Bucătărie în U · 35.000 – 60.000 lei”), apoi secțiunile Contact (telefon cu link), Proiect, Dimensiuni (cm), Alte detalii și Atașamente (numele original și mărimea fiecărui fișier).
+  - **Atașamentele:** se numesc ordonat `plan.pdf`, `poza-1.jpg`…
+  - **Formate:** HTML și text simplu.
+  - **Subiectul** include mobila, forma, domeniul și numele.
+- **[i] Pentru testare:** variabila opțională `RESEND_API_URL` permite un server local care imită Resend. În producție nu se setează.
+
+### Teste (playwright-cli, build de producție, email prin serverul de imitație)
+- **[i] Toate variantele, la 1440px și 390px, 22 de trimiteri reușite:** bucătărie în U, bucătărie cu insulă, dressing, dormitor pe 2 pereți, living, hol pe 3 pereți, baie, comercial cu plan, altceva, mai multe camere (plan PDF și 5 poze), toată locuința (plan PNG și poze). Pentru fiecare am verificat emailul primit și atașamentele.
+- **[i] Erori testate:**
+  - lipsa câmpurilor obligatorii: erori afișate, nicio cerere trimisă, pozele rămân;
+  - 6 poze: se păstrează primele 5, cu mesaj;
+  - plan PDF de 2,9 MB: refuzat, cu explicație;
+  - dimensiune scrisă în litere sau absurdă: eroare și focus pe câmp;
+  - căderea serviciului de email: mesaj clar, nimic nu se pierde.
+- **[i] Performanță** pe /cerere-oferta: LCP 1,14s pe mobil și 0,79s pe desktop, CLS cel mult 0,024.
+- **[i] Calitate:** `npm run lint` curat, `npm run build` reușit, detectorul impeccable curat. A semnalat o bordură laterală pe nota din „Cum lucrăm”, pe care am înlocuit-o cu gestul sertarului.
+- **[i] Capturi noi în `capturi/`:** `cerere-oferta-{1440,390}.png` (gol), `cerere-oferta-bucatarie-*.png` (bucătărie în U completată), `cerere-oferta-dressing-*.png` și `cerere-oferta-toata-locuinta-*.png` (cu plan și poze).

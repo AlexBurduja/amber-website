@@ -1,6 +1,7 @@
 .formular {
+  container-type: inline-size;
   display: grid;
-  gap: 28px;
+  gap: 8px;
   padding: clamp(24px, 4vw, 48px);
   background: var(--white);
   border: 1px solid var(--line);
@@ -40,7 +41,9 @@
 
 .camp input[type="text"],
 .camp input[type="tel"],
-.camp textarea {
+.camp select,
+.camp textarea,
+.campDimensiune input {
   width: 100%;
   min-height: 52px;
   padding: 12px 14px;
@@ -63,11 +66,13 @@
 }
 
 .camp input:hover,
+.camp select:hover,
 .camp textarea:hover {
   border-color: var(--ink);
 }
 
 .camp input:focus-visible,
+.camp select:focus-visible,
 .camp textarea:focus-visible {
   outline: none;
   border-color: var(--ink);
@@ -271,4 +276,411 @@
   .trimite {
     justify-self: stretch;
   }
+}
+
+/* ---------- secțiunile formularului ---------- */
+
+.notaObligatorii {
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.sectiune {
+  display: grid;
+  gap: 24px;
+  padding-top: 28px;
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.sectiune:first-of-type {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 12px;
+}
+
+.titluSectiune {
+  position: relative;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* Sertarul galben marchează începutul fiecărei secțiuni. */
+.titluSectiune::before {
+  content: "";
+  position: absolute;
+  top: -29px;
+  left: 0;
+  width: 32px;
+  height: 3px;
+  background: var(--amber);
+  transform: translateX(6px);
+}
+
+.sectiune:first-of-type .titluSectiune::before {
+  display: none;
+}
+
+.titluSectiune .optional {
+  font-size: 0.9375rem;
+}
+
+.ajutorSectiune {
+  margin-top: -14px;
+  font-size: 0.9375rem;
+  color: var(--stone);
+  max-width: 60ch;
+}
+
+.randDoua {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 16px;
+}
+
+.inputScurt {
+  max-width: 360px;
+}
+
+.camp select {
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22%3E%3Cpath d=%22M1 1l5 5 5-5%22 stroke=%22%23111111%22 stroke-width=%221.6%22 fill=%22none%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+
+/* Comutatorul „o cameră / mai multe / toată locuința”. */
+.segmente {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.segment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid var(--stone);
+  margin-left: -1px;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.segment:first-child {
+  margin-left: 0;
+  border-radius: var(--raza) 0 0 var(--raza);
+}
+
+.segment:last-child {
+  border-radius: 0 var(--raza) var(--raza) 0;
+}
+
+.segment input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.segment:hover {
+  background: var(--paper);
+}
+
+.segment:has(input:checked) {
+  z-index: 1;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.segment:has(input:focus-visible) {
+  z-index: 2;
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.segmentMic {
+  min-height: 44px;
+  padding: 0 14px;
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-weight: 400;
+}
+
+/* Formele de bucătărie, cu schiță. */
+.forme {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.forma {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 12px 8px 10px;
+  border: 1px solid var(--stone);
+  border-radius: var(--raza);
+  cursor: pointer;
+  font-size: 0.9375rem;
+  text-align: center;
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.forma input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.forma:hover {
+  background: var(--paper);
+}
+
+.forma:has(input:checked) {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+  background: var(--paper);
+}
+
+.forma:has(input:checked)::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 10px;
+  width: 36%;
+  height: 3px;
+  background: var(--amber);
+}
+
+.forma:has(input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.schitaForma {
+  width: 64px;
+  height: 64px;
+}
+
+.formaCamera {
+  fill: var(--white);
+  stroke: var(--stone);
+  stroke-width: 1;
+}
+
+.formaCorpuri rect {
+  fill: var(--ink);
+}
+
+.formaCorpuri .formaOptionala {
+  fill: var(--line);
+}
+
+.formaCorpuri text {
+  fill: var(--ink);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.formaCorpuri .formaLiteraMica {
+  fill: var(--stone);
+}
+
+/* Dimensiunile și ghidul de măsurare, alăturate când e loc. */
+.dimensiuniCuGhid {
+  display: grid;
+  gap: 24px;
+}
+
+@container (min-width: 600px) {
+  .dimensiuniCuGhid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+    align-items: start;
+  }
+}
+
+.dimensiuni {
+  display: grid;
+  gap: 16px;
+}
+
+.campDimensiune {
+  display: grid;
+  gap: 6px;
+}
+
+.campDimensiune label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.cuUnitate {
+  position: relative;
+  max-width: 220px;
+}
+
+.cuUnitate input {
+  padding-right: 48px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cuUnitate span {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--stone);
+  pointer-events: none;
+}
+
+.campDimensiune input:hover {
+  border-color: var(--ink);
+}
+
+.campDimensiune input:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--amber);
+}
+
+.campDimensiune input[aria-invalid="true"] {
+  border-color: #b3261e;
+}
+
+.ghid {
+  padding: 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--raza);
+}
+
+.titluGhid {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-bottom: 8px;
+}
+
+.schitaPerete {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.schitaText {
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: 11px;
+  fill: var(--ink);
+}
+
+.schitaTextMic {
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: 9.5px;
+  fill: var(--stone);
+}
+
+.schitaEticheta {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+.pasiGhid {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  padding-left: 18px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.pasiGhid li::marker {
+  color: var(--stone);
+}
+
+/* Fișiere */
+.renunta {
+  justify-self: start;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.total {
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.total:empty {
+  display: none;
+}
+
+.total:focus {
+  outline: none;
+}
+
+.final {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.notaEstimare {
+  font-size: var(--text-mic);
+  color: var(--stone);
+  max-width: 60ch;
+}
+
+@container (max-width: 479px) {
+  .randDoua {
+    grid-template-columns: 1fr;
+  }
+
+  .forme {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .segment {
+    flex: 1 1 auto;
+    padding: 0 12px;
+  }
+
+  .inputScurt {
+    max-width: none;
+  }
+}
+
+.formular > .camp {
+  margin-top: 24px;
+}
+
+/* Cele trei variante de domeniu: mereu pe un rând, în coloane egale. */
+.segmenteDomeniu {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 520px;
+}
+
+.segmenteDomeniu .segment {
+  min-height: 56px;
+  padding: 6px 10px;
+  text-align: center;
+  line-height: 1.25;
 }

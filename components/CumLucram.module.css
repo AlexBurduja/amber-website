@@ -114,3 +114,23 @@
     padding-top: 8px;
   }
 }
+
+.nota {
+  position: relative;
+  max-width: 68ch;
+  margin-top: 48px;
+  padding-top: 20px;
+  color: var(--ink);
+}
+
+/* Sertarul galben, tras puțin în afară, deasupra notei. */
+.nota::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 4px;
+  background: var(--amber);
+  transform: translateX(8px);
+}

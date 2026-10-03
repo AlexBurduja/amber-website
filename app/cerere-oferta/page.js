@@ -1,15 +1,16 @@
+import Link from "next/link";
 import Breadcrumb from "@/components/Breadcrumb";
 import Todo from "@/components/Todo";
 import FormularOferta from "./FormularOferta";
 import { tipuriMobila } from "@/lib/cerere";
-import { contact, linkTelefon, linkWhatsapp } from "@/lib/site";
+import { adresaText, contact, linkTelefon, linkWhatsapp } from "@/lib/site";
 import styles from "./page.module.css";
 import { og } from "@/lib/metadata";
 
 export const metadata = {
   title: "Cere ofertă pentru mobilă la comandă",
   description:
-    "Trimite o cerere de ofertă pentru mobilă la comandă: nume, telefon și ce mobilă îți trebuie. Poți adăuga dimensiuni și poze ale spațiului.",
+    "Cere o ofertă estimativă pentru mobilă la comandă: trimite dimensiunile aproximative, poze sau planul locuinței. Prețul final se confirmă după măsurători.",
   alternates: { canonical: "/cerere-oferta" },
   openGraph: og("/cerere-oferta"),
 };
@@ -27,9 +28,9 @@ export default async function CerereOferta({ searchParams }) {
           <h1>Cere ofertă</h1>
           <span className={styles.sertar} aria-hidden="true" />
           <p>
-            Spune-ne ce mobilă îți trebuie. Ne ajung numele, telefonul și tipul de mobilă. Dacă ai
-            dimensiunile spațiului sau câteva poze, adaugă-le: ne ajută să înțelegem de la început
-            ce ai în minte.
+            Spune-ne ce vrei să mobilezi. Ne ajung numele, telefonul și tipul de mobilă. Cu cât ne
+            trimiți mai multe date (dimensiuni aproximative, poze, planul locuinței), cu atât oferta
+            estimativă e mai aproape de prețul final.
           </p>
         </div>
         <div className={styles.formular}>
@@ -44,8 +45,8 @@ export default async function CerereOferta({ searchParams }) {
                   1
                 </span>
                 <div>
-                  <h3>Primim cererea</h3>
-                  <p>Datele tale, dimensiunile și pozele ajung direct la noi.</p>
+                  <h3>Primești o ofertă estimativă</h3>
+                  <p>Pe baza datelor trimise. Dacă ne lipsește ceva, te sunăm înainte.</p>
                 </div>
               </li>
               <li>
@@ -53,8 +54,8 @@ export default async function CerereOferta({ searchParams }) {
                   2
                 </span>
                 <div>
-                  <h3>Te sunăm și venim să măsurăm</h3>
-                  <p>Vorbim despre ce îți trebuie, apoi facem măsurătorile la fața locului.</p>
+                  <h3>Contract și măsurători exacte</h3>
+                  <p>După semnarea contractului venim să măsurăm exact spațiul.</p>
                 </div>
               </li>
               <li>
@@ -62,14 +63,22 @@ export default async function CerereOferta({ searchParams }) {
                   3
                 </span>
                 <div>
-                  <h3>Primești proiectul 3D și oferta</h3>
-                  <p>
-                    Randări, schițe și ofertă, înainte de orice angajament. Producția începe doar după
-                    ce le validezi.
-                  </p>
+                  <h3>Proiect 3D și preț final</h3>
+                  <p>Le confirmăm pe baza măsurătorilor. Producția începe după ce validezi proiectul.</p>
                 </div>
               </li>
             </ol>
+          </div>
+          <div className={styles.alternativ}>
+            <h2 className={styles.titluAlternativ}>Vrei să discutăm în detaliu?</h2>
+            <p>
+              Te așteptăm în showroom
+              {contact.adresaShowroom ? `, pe ${adresaText(contact.adresaShowroom)}` : null}. Acolo
+              putem vorbi pe larg despre spațiu, materiale și finisaje.{" "}
+              <Link href="/contact" className="link">
+                Detalii de contact
+              </Link>
+            </p>
           </div>
           {contact.telefon || process.env.NODE_ENV !== "production" ? (
             <div className={styles.alternativ}>

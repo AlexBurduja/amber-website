@@ -6,7 +6,8 @@ const nextConfig = {
   experimental: {
     serverActions: {
       // Formularul de ofertă: până la 5 poze de 5 MB, plus câmpurile text.
-      bodySizeLimit: "26mb",
+      // Ca pe Vercel (~4,5 MB pe cerere). Formularul ține atașamentele sub 4 MB (lib/cerere.js).
+      bodySizeLimit: "4.5mb",
     },
   },
 };

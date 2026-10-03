@@ -60,9 +60,10 @@ export default function Despre() {
         <div className={styles.bloc}>
           <h2>Cum lucrăm cu tine</h2>
           <p>
-            Venim să măsurăm, îți arătăm proiectul 3D și primești oferta înainte de orice angajament.
-            După ce validezi proiectul, mobila intră în producție la noi, iar la final o montează
-            echipa noastră. Pentru reglaje ulterioare avem și service.{" "}
+            Pornim de la dimensiunile și pozele pe care ni le trimiți și îți facem o ofertă estimativă.
+            După semnarea contractului venim să măsurăm exact, iar pe baza măsurătorilor confirmăm
+            proiectul 3D și prețul final. Mobila se produce la noi și o montează echipa noastră. Dacă
+            vrei să discutăm în detaliu, te așteptăm în showroom.{" "}
             <Link href="/mobila-la-comanda" className="link">
               Pașii, pe larg
             </Link>

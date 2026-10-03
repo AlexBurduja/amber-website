@@ -17,7 +17,7 @@ import { og } from "@/lib/metadata";
 export const metadata = {
   title: { absolute: "Mobilă la comandă din fabrica proprie, București | Amber" },
   description:
-    "Producător de mobilier la comandă: bucătării, dressinguri, dormitoare și living, făcute în fabrica noastră din București. Măsurăm, proiectăm 3D și montăm.",
+    "Producător de mobilier la comandă: bucătării, dressinguri, dormitoare și living, făcute în fabrica noastră din București, cu proiect 3D și montaj cu echipa noastră.",
   alternates: { canonical: "/" },
   openGraph: og("/"),
 };

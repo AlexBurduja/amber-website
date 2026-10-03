@@ -1,6 +1,7 @@
 // Textele paginilor de categorie, scrise de la zero.
-// Servicii confirmate de Alex: măsurători la fața locului, proiect 3D, oferta înaintea oricărui angajament,
-// producție în fabrica proprie, montaj și service cu echipă proprie. Transportul și garanția nu se promit.
+// Procesul confirmat de Alex: ofertă estimativă pe baza datelor trimise de client; măsurători exacte doar
+// după semnarea contractului; proiectul 3D și prețul final pe baza măsurătorilor; producție în fabrica
+// proprie, montaj și service cu echipă proprie. Transportul și garanția nu se promit.
 // grupuriMateriale: grupurile din data/fabrica.js afișate pe pagină (doar unde se potrivesc).
 
 const factoriComuni = [
@@ -13,9 +14,9 @@ const factoriComuni = [
 
 const intrebariComune = [
   {
-    intrebare: "Veniți să măsurați?",
+    intrebare: "Prețul din ofertă e cel final?",
     raspuns:
-      "Da, facem măsurătorile la fața locului. Apoi primești proiectul 3D și oferta, înainte de orice angajament.",
+      "Prima ofertă e estimativă: o facem pe baza dimensiunilor aproximative și a pozelor pe care ni le trimiți. După semnarea contractului venim să măsurăm exact, iar pe baza măsurătorilor confirmăm proiectul 3D și prețul final.",
   },
   {
     intrebare: "Cine produce și cine montează mobila?",
@@ -58,7 +59,7 @@ export const continutCategorii = {
       {
         intrebare: "Ce informații trimit pentru o ofertă?",
         raspuns:
-          "Numele, telefonul și tipul de mobilă. Dacă ai dimensiunile pereților și câteva poze ale camerei, adaugă-le în cerere: ne ajută să înțelegem spațiul de la început.",
+          "Numele, telefonul și tipul de mobilă ajung ca să te contactăm. Pentru o ofertă estimativă cât mai apropiată de prețul final, adaugă forma bucătăriei, lungimea pereților, înălțimea până la tavan și câteva poze. Formularul te ghidează.",
       },
       {
         intrebare: "Pot alege eu culorile și finisajele?",
@@ -117,7 +118,7 @@ export const continutCategorii = {
       {
         intrebare: "Ce informații trimit pentru o ofertă?",
         raspuns:
-          "Numele, telefonul și tipul de mobilă. Dacă ai dimensiunile peretelui sau ale camerei și câteva poze, adaugă-le în cerere.",
+          "Numele, telefonul și tipul de mobilă ajung ca să te contactăm. Pentru o estimare mai exactă, adaugă lățimea, înălțimea și adâncimea disponibilă, plus câteva poze ale spațiului.",
       },
       {
         intrebare: "Se poate face un dulap la mansardă?",
@@ -163,7 +164,7 @@ export const continutCategorii = {
       {
         intrebare: "Ce informații trimit pentru o ofertă?",
         raspuns:
-          "Numele, telefonul și tipul de mobilă. Dacă ai dimensiunile camerei și câteva poze, adaugă-le în cerere.",
+          "Numele, telefonul și tipul de mobilă ajung ca să te contactăm. Pentru o estimare mai exactă, adaugă lungimea pereților pe care vine mobila, înălțimea camerei și câteva poze.",
       },
       {
         intrebare: "Faceți și paturi tapițate separat?",
@@ -209,7 +210,7 @@ export const continutCategorii = {
       {
         intrebare: "Ce informații trimit pentru o ofertă?",
         raspuns:
-          "Numele, telefonul și tipul de mobilă. Dacă ai dimensiunile peretelui și câteva poze ale camerei, adaugă-le în cerere.",
+          "Numele, telefonul și tipul de mobilă ajung ca să te contactăm. Pentru o estimare mai exactă, adaugă lungimea peretelui, înălțimea și câteva poze ale camerei.",
       },
       {
         intrebare: "Se pot ascunde cablurile televizorului?",
@@ -255,7 +256,7 @@ export const continutCategorii = {
       {
         intrebare: "Ce informații trimit pentru o ofertă?",
         raspuns:
-          "Numele, telefonul și tipul de mobilă. Dacă ai dimensiunile spațiului și câteva poze, adaugă-le în cerere.",
+          "Numele, telefonul și tipul de mobilă ajung ca să te contactăm. Pentru o estimare mai exactă, adaugă lungimea peretelui, înălțimea și câteva poze ale spațiului.",
       },
       {
         intrebare: "Se poate folosi spațiul de sub scară?",
@@ -300,7 +301,7 @@ export const continutCategorii = {
       {
         intrebare: "Ce informații trimit pentru o ofertă?",
         raspuns:
-          "Numele, telefonul și tipul de mobilă. Pentru un spațiu comercial, ajută planul spațiului și câteva poze.",
+          "Numele, telefonul și tipul de mobilă ajung ca să te contactăm. Pentru un spațiu comercial, ajută mult planul spațiului și câteva poze.",
       },
       {
         intrebare: "Lucrați și cu firme?",

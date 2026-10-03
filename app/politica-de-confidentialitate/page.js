@@ -30,8 +30,15 @@ export default function PoliticaConfidentialitate() {
       <ul>
         <li>numele și numărul de telefon;</li>
         <li>tipul de mobilă care te interesează;</li>
-        <li>opțional: localitatea, dimensiuni sau alte detalii despre spațiu și poze ale spațiului.</li>
+        <li>
+          opțional: localitatea, dimensiunile aproximative ale spațiului, un buget orientativ, alte
+          detalii, poze ale spațiului și planul locuinței.
+        </li>
       </ul>
+      <p>
+        Pozele se micșorează în browserul tău înainte de trimitere; atunci se șterg și metadatele din
+        ele (EXIF), inclusiv eventuala locație GPS. Planurile PDF se trimit așa cum sunt.
+      </p>
       <p>Nu cerem și nu folosim alte date personale prin acest site.</p>
 
       <h2>De ce le folosim</h2>
