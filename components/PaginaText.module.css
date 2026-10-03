@@ -1,0 +1,45 @@
+.pagina {
+  padding-top: 28px;
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.titlu {
+  margin-top: 28px;
+}
+
+.actualizat {
+  margin-top: 12px;
+  color: var(--stone);
+  font-size: var(--text-mic);
+}
+
+.text {
+  max-width: 68ch;
+  margin-top: 40px;
+}
+
+.text h2 {
+  margin-top: 48px;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.text p,
+.text ul {
+  margin-top: 12px;
+}
+
+.text ul {
+  padding-left: 1.25em;
+}
+
+.text li + li {
+  margin-top: 6px;
+}
+
+.text a {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}

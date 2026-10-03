@@ -1,0 +1,144 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--ink);
+  color: var(--white);
+  overscroll-behavior: contain;
+  --focus: var(--amber);
+}
+
+.dialog::backdrop {
+  background: rgb(17 17 17 / 0.92);
+}
+
+.dialog[open] {
+  display: grid;
+  grid-template: 100% / 100%;
+}
+
+.dialog form {
+  display: contents;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog[open] {
+    animation: apare 0.3s var(--ease);
+  }
+}
+
+@keyframes apare {
+  from {
+    opacity: 0;
+  }
+}
+
+.scena {
+  display: grid;
+  padding: 64px 88px 24px;
+  min-height: 0;
+}
+
+.figura {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 0;
+  margin: 0;
+}
+
+.media {
+  position: relative;
+  min-height: 0;
+}
+
+.img {
+  object-fit: contain;
+}
+
+.eticheta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 6px 9px 5px;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: var(--raza);
+  font-size: 0.6875rem;
+}
+
+.legenda {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 16px;
+  font-size: var(--text-mic);
+  color: var(--pe-inchis-secundar);
+}
+
+.contor {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.buton {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--graphite);
+  border-radius: var(--raza);
+  background: var(--ink);
+  color: var(--white);
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.buton:hover {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+.inchide {
+  top: 8px;
+  right: 16px;
+}
+
+.inapoi,
+.inainte {
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.inapoi {
+  left: 16px;
+}
+
+.inainte {
+  right: 16px;
+}
+
+@media (max-width: 767px) {
+  .scena {
+    padding: 64px 12px 88px;
+  }
+
+  .inapoi,
+  .inainte {
+    top: auto;
+    bottom: 16px;
+    translate: none;
+  }
+
+  .inapoi {
+    left: auto;
+    right: 80px;
+  }
+}

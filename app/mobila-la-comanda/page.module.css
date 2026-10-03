@@ -1,0 +1,177 @@
+.antet {
+  padding-top: 28px;
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+
+.titlu {
+  margin-top: 28px;
+  font-size: clamp(2.5rem, 1.4rem + 4vw, 4.5rem);
+}
+
+.sertar {
+  display: block;
+  width: 96px;
+  height: 8px;
+  margin: 28px 0;
+  background: var(--amber);
+  transform: translateX(12px);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 48px;
+  max-width: 64rem;
+}
+
+.actiuni {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 36px;
+}
+
+.actiuni a:last-child {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.categorii {
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.lista {
+  list-style: none;
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.rand {
+  border-bottom: 1px solid var(--line);
+}
+
+.randLink {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  padding-block: 24px;
+  text-decoration: none;
+}
+
+.randMedia {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--sand);
+}
+
+.randImg {
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+
+.randText {
+  position: relative;
+}
+
+.randText h3 {
+  display: inline-block;
+  position: relative;
+}
+
+.randText h3::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: -4px;
+  bottom: -6px;
+  height: 4px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.randText p {
+  margin-top: 12px;
+  max-width: 56ch;
+  color: var(--stone);
+}
+
+.randNumar {
+  display: block;
+  margin-top: 12px;
+  font-size: var(--text-mic);
+  font-variant-numeric: tabular-nums;
+}
+
+.randLink:hover .randImg {
+  transform: scale(1.03);
+}
+
+.randLink:hover h3::after,
+.randLink:focus-visible h3::after {
+  transform: scaleX(1);
+}
+
+.pret {
+  padding-block: clamp(64px, 9vw, 120px);
+}
+
+.pretIntro {
+  margin-top: 16px;
+  color: var(--stone);
+}
+
+.factori {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 36px;
+}
+
+.factori div {
+  padding-top: 20px;
+  border-top: 2px solid var(--ink);
+}
+
+.factori dt {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.factori dd {
+  margin-top: 8px;
+  color: var(--stone);
+}
+
+.pretNota {
+  margin-top: 32px;
+}
+
+@media (max-width: 1023px) {
+  .factori {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .randLink {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 479px) {
+  .factori {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,274 @@
+.formular {
+  display: grid;
+  gap: 28px;
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--raza);
+}
+
+.camp {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border: 0;
+}
+
+.camp > label,
+.camp > legend {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.camp > legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.optional {
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--stone);
+}
+
+.ajutor {
+  font-size: var(--text-mic);
+  color: var(--stone);
+  margin-top: -2px;
+}
+
+.camp input[type="text"],
+.camp input[type="tel"],
+.camp textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--stone);
+  border-radius: var(--raza);
+  background: var(--white);
+  font-size: 1rem;
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.camp textarea {
+  resize: vertical;
+  min-height: 132px;
+  line-height: 1.5;
+}
+
+.camp input::placeholder {
+  color: var(--stone);
+  opacity: 1;
+}
+
+.camp input:hover,
+.camp textarea:hover {
+  border-color: var(--ink);
+}
+
+.camp input:focus-visible,
+.camp textarea:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--amber);
+  border-radius: var(--raza);
+}
+
+.camp input[aria-invalid="true"],
+.camp textarea[aria-invalid="true"] {
+  border-color: #b3261e;
+}
+
+.optiuni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.optiune {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--stone);
+  border-radius: var(--raza);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.optiune input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.optiune:hover {
+  background: var(--paper);
+}
+
+.optiune:has(input:checked) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.optiune:has(input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.fisiere {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+/* Inputul nativ stă peste butonul vizibil: clicul, tastatura și cititoarele de ecran merg pe el. */
+.inputFisiere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.butonFisiere {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--ink);
+  border-radius: var(--raza);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.fisiere:hover .butonFisiere {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.fisiere:has(.inputFisiere:focus-visible) .butonFisiere {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.stareFisiere {
+  font-size: 0.9375rem;
+  color: var(--stone);
+}
+
+.acord {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-family: var(--font-text), system-ui, sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.9375rem !important;
+  cursor: pointer;
+}
+
+.acord input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.eroare {
+  color: #b3261e;
+  font-size: var(--text-mic);
+}
+
+.mesajEroare {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid #b3261e;
+  border-radius: var(--raza);
+  color: #b3261e;
+  background: #fdf3f2;
+}
+
+.mesajEroare svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.capcana {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.trimite {
+  justify-self: start;
+  min-height: 56px;
+  padding: 0 32px;
+  border-radius: var(--raza);
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  transition: background-color 0.2s var(--ease), transform 0.15s var(--ease);
+}
+
+.trimite:hover:not(:disabled) {
+  background: var(--amber-hover);
+}
+
+.trimite:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.trimite:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.succes {
+  display: grid;
+  gap: 16px;
+  padding: clamp(24px, 4vw, 48px);
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--raza);
+}
+
+/* Sertarul galben, ca semn de confirmare. */
+.succes::before {
+  content: "";
+  width: 72px;
+  height: 8px;
+  background: var(--amber);
+  transform: translateX(12px);
+}
+
+.succes:focus {
+  outline: none;
+}
+
+.iconSucces {
+  color: var(--ink);
+}
+
+@media (max-width: 559px) {
+  .trimite {
+    justify-self: stretch;
+  }
+}

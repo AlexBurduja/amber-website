@@ -1,0 +1,26 @@
+.sectiune {
+  background: var(--white);
+  padding-block: clamp(64px, 9vw, 120px);
+  border-block: 1px solid var(--line);
+}
+
+.continut {
+  max-width: calc(52rem + 2 * var(--margine));
+}
+
+/* Sertarul tras în afară, ca separator deasupra titlului. */
+.sertar {
+  display: block;
+  width: 72px;
+  height: 8px;
+  margin-bottom: 28px;
+  background: var(--amber);
+  transform: translateX(12px);
+}
+
+.text {
+  margin-top: 24px;
+  display: grid;
+  gap: 16px;
+  max-width: 62ch;
+}

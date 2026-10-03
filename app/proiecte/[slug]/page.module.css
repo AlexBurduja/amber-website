@@ -1,0 +1,180 @@
+.antet {
+  padding-top: 28px;
+}
+
+.grila {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 32px 56px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.principala,
+.miniatura {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--sand);
+  cursor: zoom-in;
+}
+
+/* Imaginile din arhivă au în mare parte 1200px: nu le afișăm mai late de ~900px. */
+.principala {
+  max-width: 900px;
+}
+
+.imgPrincipala {
+  width: 100%;
+  height: auto;
+  transition: transform 0.7s var(--ease);
+}
+
+.imgMiniatura {
+  transition: transform 0.7s var(--ease);
+}
+
+.principala:hover .imgPrincipala,
+.miniatura:hover .imgMiniatura {
+  transform: scale(1.015);
+}
+
+.categorie {
+  color: var(--stone);
+}
+
+.categorie a {
+  text-decoration: none;
+}
+
+.categorie a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.titlu {
+  margin-top: 12px;
+  font-size: clamp(1.875rem, 1.4rem + 1.6vw, 2.625rem);
+}
+
+.nota3d {
+  margin-top: 16px;
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.descriere {
+  margin-top: 20px;
+}
+
+.subtitlu {
+  margin-top: 32px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.materiale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.materiale li {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--raza);
+  background: var(--white);
+  font-size: 0.9375rem;
+}
+
+.notaMateriale {
+  margin-top: 10px;
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.actiuni {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin-top: 32px;
+}
+
+.galerie {
+  margin-top: 48px;
+  padding-bottom: clamp(64px, 8vw, 112px);
+}
+
+/* Raport fix 4:3, fără goluri. Cu număr impar de poze, prima ocupă toată lățimea.
+   Poza întreagă se vede în vizualizatorul pe tot ecranul. */
+.galerieGrila {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.galerieGrila li:first-child:nth-last-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.galerieGrila li:first-child:nth-last-child(odd) .miniatura {
+  aspect-ratio: 16 / 9;
+}
+
+.miniatura {
+  aspect-ratio: 4 / 3;
+}
+
+.imgMiniatura {
+  object-fit: cover;
+}
+
+.inrudite {
+  padding-block: clamp(64px, 9vw, 120px);
+}
+
+.inruditeGrila {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 24px;
+  margin-top: 36px;
+  align-items: start;
+}
+
+.galerie + * {
+  margin-top: 0;
+}
+
+@media (max-width: 1023px) {
+  .grila {
+    grid-template-columns: 1fr;
+  }
+
+  .inruditeGrila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .inruditeGrila li:nth-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .galerieGrila {
+    gap: 12px;
+  }
+
+  .inruditeGrila {
+    gap: 28px 12px;
+  }
+}

@@ -1,0 +1,166 @@
+.antet {
+  padding-top: 28px;
+}
+
+.titlu {
+  margin-top: 24px;
+}
+
+.intro {
+  margin-top: 16px;
+  color: var(--stone);
+}
+
+.filtre {
+  margin-top: 32px;
+}
+
+.filtreCuloare {
+  display: flex;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 16px;
+}
+
+.etichetaFiltru {
+  flex-shrink: 0;
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.filtre ul,
+.filtreCuloare ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.filtru {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--stone);
+  border-radius: var(--raza);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.filtru:hover {
+  background: var(--white);
+}
+
+.filtru[aria-current] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.filtruCuloare {
+  min-height: 40px;
+  padding: 0 14px 0 10px;
+  font-size: 0.875rem;
+}
+
+.mostra {
+  width: 16px;
+  height: 16px;
+  border-radius: 1px;
+  box-shadow: inset 0 0 0 1px rgb(17 17 17 / 0.18);
+}
+
+.filtru[aria-current] .mostra {
+  box-shadow: 0 0 0 2px var(--ink), 0 0 0 3px var(--white);
+}
+
+.numar {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.rezultat {
+  margin-top: 40px;
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.legatura {
+  margin-top: 8px;
+  color: var(--stone);
+}
+
+.gol {
+  margin-top: 32px;
+  padding: 32px;
+  background: var(--white);
+  border: 1px dashed var(--stone);
+  border-radius: var(--raza);
+}
+
+.grila {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 44px 24px;
+  margin-top: 24px;
+}
+
+.grila h2 {
+  font-size: 1.125rem;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.spatiu {
+  height: clamp(64px, 9vw, 120px);
+}
+
+@media (max-width: 1023px) {
+  .grila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Pe mobil: filtrele pe un singur rând derulabil, grila pe 2 coloane. */
+@media (max-width: 767px) {
+  .filtre ul,
+  .filtreCuloare ul {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(-1 * var(--margine));
+    padding-inline: var(--margine);
+    scroll-padding-inline: var(--margine);
+  }
+
+  .filtre ul::-webkit-scrollbar,
+  .filtreCuloare ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filtreCuloare {
+    display: block;
+  }
+
+  .etichetaFiltru {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 559px) {
+  .grila {
+    gap: 28px 12px;
+  }
+
+  .grila h2 {
+    font-size: 0.9375rem;
+  }
+}

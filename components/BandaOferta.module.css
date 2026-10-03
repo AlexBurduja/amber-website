@@ -1,0 +1,32 @@
+.banda {
+  background: var(--amber);
+  color: var(--ink);
+  padding-block: clamp(56px, 7vw, 96px);
+}
+
+.rand {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px 64px;
+  flex-wrap: wrap;
+}
+
+.text {
+  max-width: 44rem;
+}
+
+.text p {
+  margin-top: 16px;
+  max-width: 56ch;
+}
+
+.butoane {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.banda :focus-visible {
+  outline-color: var(--ink);
+}

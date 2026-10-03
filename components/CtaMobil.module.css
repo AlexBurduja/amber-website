@@ -1,0 +1,58 @@
+.bara {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .bara {
+    position: fixed;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 30;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    transition:
+      opacity 0.3s var(--ease),
+      transform 0.3s var(--ease);
+  }
+
+  .bara[data-vizibil] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+.oferta,
+.telefon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: var(--raza);
+  box-shadow: 0 10px 24px -10px rgb(17 17 17 / 0.5);
+  text-decoration: none;
+}
+
+.oferta {
+  padding: 0 18px;
+  font-size: 0.9375rem;
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.telefon {
+  width: 46px;
+  background: var(--ink);
+  color: var(--white);
+}
+
+.oferta:focus-visible,
+.telefon:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}

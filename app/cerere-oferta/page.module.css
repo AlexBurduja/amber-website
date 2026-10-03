@@ -1,0 +1,137 @@
+.pagina {
+  padding-top: 28px;
+  padding-bottom: clamp(64px, 9vw, 120px);
+}
+
+.grila {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas:
+    "text formular"
+    "dupa formular";
+  grid-template-rows: auto 1fr;
+  gap: 0 72px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.text {
+  grid-area: text;
+}
+
+.formular {
+  grid-area: formular;
+}
+
+.dupa {
+  grid-area: dupa;
+}
+
+.text > p {
+  max-width: 44ch;
+}
+
+.sertar {
+  display: block;
+  width: 72px;
+  height: 8px;
+  margin: 24px 0;
+  background: var(--amber);
+  transform: translateX(12px);
+}
+
+.urmeaza {
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.titluUrmeaza {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.pasi {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  margin-top: 20px;
+}
+
+.pasi li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding-bottom: 24px;
+}
+
+/* Linia dintre pași. */
+.pasi li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 40px;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+
+.numar {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ink);
+  border-radius: var(--raza);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.pasi li:first-child .numar {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+
+.pasi h3 {
+  font-size: 1.0625rem;
+  padding-top: 8px;
+}
+
+.pasi p {
+  margin-top: 4px;
+  color: var(--stone);
+  font-size: 0.9375rem;
+  max-width: 38ch;
+}
+
+.alternativ {
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.titluAlternativ {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 1023px) {
+  .grila {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "text"
+      "formular"
+      "dupa";
+    grid-template-rows: auto;
+    gap: 32px;
+  }
+
+  .urmeaza {
+    margin-top: 0;
+  }
+}

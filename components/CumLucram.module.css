@@ -1,0 +1,116 @@
+.sectiune {
+  padding-block: clamp(64px, 9vw, 128px);
+}
+
+.paper {
+  background: var(--paper);
+}
+
+.sand {
+  background: var(--sand);
+}
+
+.intro {
+  margin-top: 16px;
+  color: var(--stone);
+}
+
+.pasi {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px 32px;
+  margin-top: 48px;
+  counter-reset: none;
+}
+
+.pas {
+  position: relative;
+  padding-top: 64px;
+}
+
+/* Linia care leagă pașii; secvența e reală, deci numerele au sens. */
+.pas::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 0;
+  right: -32px;
+  height: 1px;
+  background: var(--line);
+}
+
+.pas:last-child::before {
+  right: 0;
+}
+
+.numar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: var(--raza);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sand .numar {
+  background: var(--sand);
+}
+
+.pas:first-child .numar {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+
+.titluPas {
+  margin-bottom: 10px;
+}
+
+.pas p {
+  color: var(--stone);
+  max-width: 36ch;
+}
+
+@media (max-width: 767px) {
+  .pasi {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .pas {
+    padding: 0 0 36px 68px;
+  }
+
+  .pas::before {
+    top: 44px;
+    bottom: 0;
+    left: 22px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .pas:last-child {
+    padding-bottom: 0;
+  }
+
+  .pas:last-child::before {
+    display: none;
+  }
+
+  .numar {
+    top: 0;
+  }
+
+  .titluPas {
+    padding-top: 8px;
+  }
+}

@@ -1,0 +1,30 @@
+.maiMulte {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-top: 48px;
+}
+
+.stare {
+  font-size: var(--text-mic);
+  color: var(--stone);
+  font-variant-numeric: tabular-nums;
+}
+
+.buton {
+  min-height: 52px;
+  padding: 0 28px;
+  border: 2px solid var(--ink);
+  border-radius: var(--raza);
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.buton:hover {
+  background: var(--ink);
+  color: var(--white);
+}

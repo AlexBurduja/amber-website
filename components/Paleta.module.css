@@ -1,0 +1,50 @@
+.paleta {
+  margin-top: 32px;
+}
+
+.titlu {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.mostre {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.mostra {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* Mostrele au forma unui front de dulap: dreptunghi vertical, cu muchie dreaptă. */
+.culoare {
+  display: block;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 6px;
+  border-radius: var(--raza);
+  box-shadow: inset 0 0 0 1px rgb(17 17 17 / 0.1);
+}
+
+.nume {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.hex {
+  font-size: 0.75rem;
+  color: var(--stone);
+  font-variant-numeric: tabular-nums;
+}
+
+.nota {
+  margin-top: 10px;
+  font-size: var(--text-mic);
+  color: var(--stone);
+}

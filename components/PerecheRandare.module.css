@@ -1,0 +1,132 @@
+.sectiune {
+  background: var(--sand);
+  padding-block: clamp(64px, 9vw, 128px);
+}
+
+.intro {
+  margin-top: 16px;
+  color: var(--stone);
+}
+
+.comutator {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+  border: 0;
+}
+
+.optiune {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--stone);
+  border-radius: var(--raza);
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.optiune:hover {
+  background: var(--white);
+}
+
+.radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.optiune:has(.radio:checked) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.optiune:has(.radio:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.scena {
+  display: grid;
+  margin-top: 28px;
+}
+
+/* Toate perechile stau în aceeași celulă; se vede doar cea aleasă. */
+.pereche {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.45s var(--ease),
+    visibility 0s linear 0.45s;
+}
+
+.pereche:only-child,
+.sectiune:has(input[value="0"]:checked) [data-pereche="0"],
+.sectiune:has(input[value="1"]:checked) [data-pereche="1"],
+.sectiune:has(input[value="2"]:checked) [data-pereche="2"],
+.sectiune:has(input[value="3"]:checked) [data-pereche="3"],
+.sectiune:has(input[value="4"]:checked) [data-pereche="4"] {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.45s var(--ease),
+    visibility 0s;
+}
+
+/* Fără suport pentru :has, rămâne vizibilă prima pereche. */
+@supports not selector(:has(*)) {
+  .pereche[data-pereche="0"] {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.imagini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.figura {
+  margin: 0;
+}
+
+.figuraComparator {
+  margin: 0;
+  max-width: 900px;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--line);
+}
+
+.img {
+  object-fit: cover;
+}
+
+.legenda {
+  margin-top: 10px;
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.proiect {
+  margin-top: 20px;
+}
+
+@media (max-width: 639px) {
+  .imagini {
+    grid-template-columns: 1fr;
+  }
+}

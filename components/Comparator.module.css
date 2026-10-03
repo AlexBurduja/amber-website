@@ -1,0 +1,111 @@
+.comparator {
+  --p: 50;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--line);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.strat,
+.stratRandare,
+.contra {
+  position: absolute;
+  inset: 0;
+}
+
+.stratRandare {
+  overflow: hidden;
+  transform: translateX(calc((var(--p) - 100) * 1%));
+  will-change: transform;
+}
+
+.contra {
+  transform: translateX(calc((100 - var(--p)) * 1%));
+  will-change: transform;
+}
+
+.img {
+  object-fit: cover;
+}
+
+.etichetaDreapta {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 9px 5px;
+  background: var(--white);
+  color: var(--ink);
+  border-radius: var(--raza);
+  font-size: 0.6875rem;
+  line-height: 1;
+}
+
+/* Mânerul: linia de separație și sertarul galben din logo, tras puțin în afară. */
+.maner {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateX(calc((var(--p) - 50) * 1%));
+}
+
+.linie {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--white);
+  box-shadow: 0 0 0 1px rgb(17 17 17 / 0.12);
+}
+
+.sertar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 22px;
+  margin: -11px 0 0 -26px;
+  background: var(--amber);
+  border-radius: var(--raza);
+  box-shadow: 0 6px 16px -6px rgb(17 17 17 / 0.45);
+  transition: transform 0.25s var(--ease);
+}
+
+/* Mânerul mic al sertarului. */
+.sertar::after {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 22px;
+  height: 4px;
+  margin-left: -11px;
+  background: var(--ink);
+  border-radius: 1px;
+}
+
+.control {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.comparator:hover .sertar,
+.comparator:has(.control:focus-visible) .sertar {
+  transform: translateX(6px);
+}
+
+.comparator:has(.control:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}

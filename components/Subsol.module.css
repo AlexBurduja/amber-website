@@ -1,0 +1,103 @@
+.subsol {
+  padding-top: 80px;
+  font-size: 0.9375rem;
+}
+
+.grila {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 48px 40px;
+  padding-bottom: 64px;
+}
+
+.firma p {
+  max-width: 34ch;
+  margin-top: 20px;
+  color: var(--pe-inchis-secundar);
+}
+
+.logo {
+  height: 30px;
+  width: auto;
+}
+
+.titlu {
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+
+.coloana ul {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.coloana a,
+.legale a {
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+.coloana a:hover,
+.legale a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.adresa {
+  color: var(--pe-inchis-secundar);
+}
+
+.etichetaAdresa {
+  display: block;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.jos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 32px;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  border-top: 1px solid var(--graphite);
+  color: var(--pe-inchis-secundar);
+  font-size: var(--text-mic);
+}
+
+.legale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  list-style: none;
+  margin-left: auto;
+}
+
+@media (max-width: 1023px) {
+  .grila {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .firma {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 559px) {
+  .subsol {
+    padding-top: 56px;
+  }
+
+  .grila {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .legale {
+    margin-left: 0;
+    flex-direction: column;
+  }
+}

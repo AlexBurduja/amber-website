@@ -1,0 +1,73 @@
+.antet {
+  padding-top: 28px;
+}
+
+.titlu {
+  margin-top: 28px;
+}
+
+.sertar {
+  display: block;
+  width: 72px;
+  height: 8px;
+  margin: 24px 0;
+  background: var(--amber);
+  transform: translateX(12px);
+}
+
+.lead {
+  max-width: 34ch;
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem);
+  line-height: 1.35;
+}
+
+.continut {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px 72px;
+  padding-block: clamp(56px, 7vw, 96px) clamp(64px, 9vw, 120px);
+}
+
+.bloc {
+  max-width: 60ch;
+}
+
+.bloc h2 {
+  font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.875rem);
+  margin-bottom: 16px;
+}
+
+.categorii {
+  /* Grilă fixă (mereu 2 rânduri), ca schimbarea fontului să nu mute blocurile de dedesubt. */
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 8px 24px;
+  margin-top: 20px;
+  list-style: none;
+}
+
+@media (max-width: 767px) {
+  .continut {
+    grid-template-columns: 1fr;
+  }
+}
+
+.adrese {
+  display: grid;
+  gap: 16px;
+}
+
+.adrese dt {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.adrese dd {
+  color: var(--stone);
+}
+
+.notaAdrese {
+  margin-top: 16px;
+}

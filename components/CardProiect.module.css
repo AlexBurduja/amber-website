@@ -1,0 +1,113 @@
+.card {
+  position: relative;
+  min-width: 0;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--sand);
+}
+
+.grila .media {
+  aspect-ratio: 4 / 3;
+}
+
+.cadruImg {
+  position: absolute;
+  inset: 0;
+}
+
+.img {
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+
+.imgSecundara {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover .media[data-hover="gata"] .imgSecundara {
+    opacity: 1;
+  }
+}
+
+.text {
+  position: relative;
+  padding-top: 16px;
+}
+
+/* Sertarul tras în afară: bara galbenă iese de sub imagine la hover și la focus. */
+.text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12px;
+  width: 38%;
+  height: 6px;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.categorie {
+  color: var(--stone);
+  margin-bottom: 6px;
+}
+
+.titlu {
+  font-size: 1.125rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.link:hover .img {
+  transform: scale(1.02);
+}
+
+.link:hover .text::before,
+.link:focus-visible .text::before {
+  transform: scaleX(1);
+}
+
+.link:focus-visible {
+  outline-offset: 6px;
+}
+
+/* Rândul de pe homepage: înălțime fixă, lățime după proporția pozei. */
+.rand {
+  flex: 0 0 auto;
+  width: calc(var(--inaltime-rand, 400px) * var(--raport));
+  max-width: 82vw;
+}
+
+.rand .media {
+  height: var(--inaltime-rand, 400px);
+}
+
+@media (max-width: 559px) {
+  .grila .titlu {
+    font-size: 0.9375rem;
+  }
+
+  .grila .text {
+    padding-top: 10px;
+  }
+
+  .grila .categorie {
+    font-size: 0.625rem;
+    margin-bottom: 4px;
+  }
+}

@@ -1,0 +1,187 @@
+.nav {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.listaDesktop {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 14px;
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Gestul „sertar tras în afară”: bara galbenă decalată marchează pagina curentă. */
+.link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 4px;
+  background: var(--amber);
+  transform: translateX(4px) scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.link:hover::after {
+  transform: translateX(4px) scaleX(0.35);
+}
+
+.activ::after,
+.activ:hover::after {
+  transform: translateX(4px) scaleX(1);
+}
+
+.sageata {
+  transition: transform 0.25s var(--ease);
+}
+
+.link[aria-expanded="true"] .sageata {
+  transform: rotate(180deg);
+}
+
+.cuLista {
+  position: relative;
+}
+
+.lista {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 280px;
+  padding: 8px;
+  list-style: none;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--raza);
+  box-shadow: 0 18px 40px -18px rgb(17 17 17 / 0.28);
+}
+
+.lista[hidden] {
+  display: none;
+}
+
+.linkLista {
+  display: block;
+  padding: 11px 14px;
+  border-radius: var(--raza);
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.linkLista:hover {
+  background: var(--sand);
+}
+
+.linkLista[aria-current="page"] {
+  background: var(--sand);
+  font-weight: 500;
+}
+
+.butonMobil {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  color: var(--ink);
+}
+
+.panou {
+  position: fixed;
+  inset: var(--antet) 0 0 0;
+  z-index: 40;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+}
+
+.panou[hidden] {
+  display: none;
+}
+
+.panouInterior {
+  padding: 28px var(--margine) calc(48px + env(safe-area-inset-bottom));
+}
+
+.titluGrup {
+  color: var(--stone);
+  margin-bottom: 8px;
+}
+
+.listaMobil {
+  list-style: none;
+}
+
+.listaSecundara {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.linkMobil {
+  position: relative;
+  display: inline-block;
+  padding: 10px 0;
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-size: 1.375rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.linkMobil.activ::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: -4px;
+  bottom: 6px;
+  height: 4px;
+  background: var(--amber);
+}
+
+.telefonMobil {
+  display: inline-block;
+  margin-top: 28px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 1023px) {
+  .nav {
+    order: 3;
+    flex: 0 0 auto;
+  }
+
+  .listaDesktop {
+    display: none;
+  }
+
+  .butonMobil {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .panou {
+    display: none;
+  }
+}

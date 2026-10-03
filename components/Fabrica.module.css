@@ -1,0 +1,189 @@
+.sectiune {
+  padding-block: clamp(72px, 9vw, 128px);
+}
+
+.antet {
+  display: grid;
+  gap: 20px;
+  max-width: 52rem;
+}
+
+.titlu {
+  color: var(--white);
+}
+
+.lead {
+  color: var(--pe-inchis-secundar);
+  font-size: 1.125rem;
+  max-width: 58ch;
+}
+
+/* Pozele din fabrică au rezoluție mică (593px): le ținem la cel mult ~400px lățime. */
+.poze {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--graphite);
+}
+
+.img {
+  object-fit: cover;
+}
+
+.etichetaPoza {
+  margin-top: 12px;
+  color: var(--amber);
+}
+
+.etape {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 32px;
+  margin-top: 64px;
+  counter-reset: none;
+}
+
+.etapa {
+  position: relative;
+  padding-top: 20px;
+  border-top: 1px solid var(--graphite);
+}
+
+/* Sertarul galben marchează începutul fiecărei etape. */
+.etapa::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 28px;
+  height: 3px;
+  background: var(--amber);
+  transform: translateX(6px);
+}
+
+.numar {
+  display: block;
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+
+.titluEtapa {
+  margin-top: 8px;
+  color: var(--white);
+  font-size: 1.125rem;
+}
+
+.etapa p {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  color: var(--pe-inchis-secundar);
+  max-width: 32ch;
+}
+
+.frezare {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: 32px 56px;
+  align-items: start;
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--graphite);
+}
+
+.titluFrezare {
+  color: var(--white);
+  font-size: 1.375rem;
+}
+
+.frezareText p {
+  margin-top: 12px;
+  color: var(--pe-inchis-secundar);
+  max-width: 40ch;
+}
+
+.linkDespre {
+  display: inline-block;
+  margin-top: 20px;
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.modele {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.model {
+  position: relative;
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--graphite);
+}
+
+.numeModel {
+  margin-top: 8px;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--pe-inchis-secundar);
+}
+
+@media (max-width: 1023px) {
+  .etape {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .frezare {
+    grid-template-columns: 1fr;
+  }
+
+  .modele {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Pe mobil, pozele din fabrică devin un rând derulabil, ca secțiunea să nu fie interminabilă. */
+@media (max-width: 767px) {
+  .poze {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--margine));
+    padding-inline: var(--margine);
+    scroll-padding-inline: var(--margine);
+    scrollbar-width: none;
+  }
+
+  .poze::-webkit-scrollbar {
+    display: none;
+  }
+
+  .poza {
+    scroll-snap-align: start;
+  }
+
+  .etape {
+    gap: 28px 20px;
+  }
+
+  .etapa p {
+    font-size: 0.875rem;
+  }
+}

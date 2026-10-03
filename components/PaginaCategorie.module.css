@@ -1,0 +1,155 @@
+.antet {
+  padding-top: 28px;
+}
+
+.antetGrila {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 32px 64px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.sertar {
+  display: block;
+  width: 72px;
+  height: 8px;
+  margin: 24px 0;
+  background: var(--amber);
+  transform: translateX(12px);
+}
+
+.intro {
+  max-width: 56ch;
+}
+
+.actiuni {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 32px;
+}
+
+.actiuni a:not([class*="buton"]) {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.antetMedia {
+  overflow: hidden;
+  border-radius: var(--raza);
+  background: var(--sand);
+  max-width: 620px;
+  justify-self: end;
+}
+
+.antetImg {
+  width: 100%;
+  height: auto;
+}
+
+.proiecte {
+  padding-block: clamp(64px, 8vw, 112px);
+}
+
+.grup {
+  margin-top: 40px;
+}
+
+.grup + .grup {
+  margin-top: 64px;
+}
+
+.titluGrup {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.textGrup {
+  margin-top: 12px;
+  color: var(--stone);
+}
+
+.grila {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 44px 24px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.ghid {
+  background: var(--sand);
+  padding-block: clamp(64px, 9vw, 120px);
+}
+
+.ghidGrila {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px 72px;
+}
+
+.paragrafe {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  max-width: 62ch;
+}
+
+.titluFactori {
+  margin-top: 40px;
+}
+
+.factori {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.factori li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.factori li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 12px;
+  height: 4px;
+  background: var(--amber);
+  transform: translateX(3px);
+}
+
+.notaPret {
+  margin-top: 20px;
+  color: var(--stone);
+}
+
+@media (max-width: 1023px) {
+  .antetGrila,
+  .ghidGrila {
+    grid-template-columns: 1fr;
+  }
+
+  .antetMedia {
+    justify-self: stretch;
+    max-width: none;
+    order: -1;
+  }
+
+  .grila {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 559px) {
+  .grila {
+    gap: 28px 12px;
+  }
+}

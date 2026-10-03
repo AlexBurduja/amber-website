@@ -1,0 +1,63 @@
+.cadru {
+  --inaltime-rand: 420px;
+}
+
+.lista {
+  --gol: max(var(--margine), calc((100vw - var(--latime-continut)) / 2));
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gol);
+  padding-inline: var(--gol);
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+}
+
+.lista > * {
+  scroll-snap-align: start;
+}
+
+.lista:focus-visible {
+  outline-offset: -2px;
+}
+
+.sageti {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: calc(var(--latime-continut) + 2 * var(--margine));
+  margin: 12px auto 0;
+  padding-inline: var(--margine);
+}
+
+.sageata {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--ink);
+  border-radius: var(--raza);
+  transition:
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.sageata:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+
+@media (max-width: 767px) {
+  .cadru {
+    --inaltime-rand: 300px;
+  }
+
+  .lista {
+    gap: 16px;
+  }
+
+  .sageti {
+    display: none;
+  }
+}

@@ -1,49 +1,280 @@
+/* Culorile brandului: definite o singură dată, folosite doar prin variabile. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --amber: #ffd100;
+  --amber-hover: #f2c200;
+  --ink: #111111;
+  --graphite: #2b2b2b;
+  --stone: #5e5a55;
+  --line: #e6e1d8;
+  --sand: #efeae2;
+  --paper: #faf8f4;
+  --white: #ffffff;
+
+  /* Gri cald pentru text secundar pe fundal închis (contrast ≥ 4,5:1 pe --ink). */
+  --pe-inchis-secundar: #bdb6ac;
+
+  --focus: var(--ink);
+  --raza: 2px;
+  --latime-continut: 1280px;
+  --margine: clamp(16px, 4vw, 40px);
+  --antet: 72px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --text-mic: 0.875rem;
+  --text-eticheta: 0.8125rem;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (max-width: 767px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --antet: 60px;
   }
 }
 
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--antet) + 16px);
+  scrollbar-color: var(--stone) var(--paper);
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  caret-color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal;
+}
+
+@media (min-width: 1024px) {
+  body {
+    font-size: 1.125rem;
+  }
+}
+
+main {
+  flex: 1;
+}
+
+.principal {
+  position: relative;
+}
+
+/* Cât e meniul mobil deschis, butonul fix „Cere ofertă” nu se vede. */
+body:has(#meniu-mobil:not([hidden])) #cta-mobil {
+  display: none;
+}
+
+/* Pragul după care apare butonul „Cere ofertă” fix pe mobil: primul ecran. */
+#prag-cta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100svh;
+  pointer-events: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 600;
+  text-wrap: balance;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 1.4rem + 3.4vw, 3.75rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a,
+button,
+summary,
+label {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgb(255 209 0 / 0.25);
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--raza);
+}
+
+/* Secțiunile închise (hero, subsol) schimbă culoarea focusului. */
+.inchis {
+  --focus: var(--amber);
+  background: var(--ink);
+  color: var(--white);
+  color-scheme: dark;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--latime-continut) + 2 * var(--margine));
+  margin-inline: auto;
+  padding-inline: var(--margine);
+}
+
+.text-lung {
+  max-width: 68ch;
+}
+
+/* Linkuri în text: --ink subliniat cu galben. */
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s var(--ease);
+}
+
+.link:hover {
+  text-decoration-color: var(--ink);
+}
+
+.inchis .link:hover {
+  text-decoration-color: var(--white);
+}
+
+/* Etichete mici: categorii, „Proiect 3D”. Majuscule ca „AMBER” din logo. */
+.eticheta {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+@media (min-width: 1024px) {
+  .eticheta {
+    font-size: var(--text-eticheta);
+  }
+}
+
+.ascuns-vizual {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sari-la-continut {
+  position: absolute;
+  left: var(--margine);
+  top: -100px;
+  z-index: 100;
+  padding: 12px 16px;
+  background: var(--amber);
+  color: var(--ink);
+  font-weight: 500;
+  border-radius: var(--raza);
+}
+
+.sari-la-continut:focus {
+  top: 12px;
+}
+
+/* Tranziția între pagini: poza din card devine poza principală a proiectului. */
+::view-transition-group(.morf) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

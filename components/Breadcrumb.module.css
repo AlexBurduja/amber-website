@@ -1,0 +1,38 @@
+.nav {
+  font-size: var(--text-mic);
+  color: var(--stone);
+}
+
+.lista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  list-style: none;
+}
+
+.pas {
+  display: inline-flex;
+  align-items: center;
+}
+
+.pas a {
+  text-decoration: none;
+}
+
+.pas a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  color: var(--ink);
+}
+
+.pas span[aria-current] {
+  color: var(--ink);
+}
+
+.sep {
+  margin-inline: 8px;
+  opacity: 0.6;
+}

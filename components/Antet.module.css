@@ -1,0 +1,102 @@
+.antet {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+  -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.rand {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: var(--antet);
+}
+
+.logo {
+  flex-shrink: 0;
+  display: block;
+  padding: 6px 0;
+}
+
+.logoImg {
+  display: block;
+  height: 30px;
+  width: auto;
+  aspect-ratio: 4547 / 700;
+  overflow: visible;
+}
+
+/* Sertarul din logo iese o singură dată, la prima încărcare din sesiune. */
+.sertarLogo {
+  transform-box: fill-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(html.logo-prima) .sertarLogo {
+    animation: sertarLogo 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s both;
+  }
+}
+
+@keyframes sertarLogo {
+  from {
+    transform: translateX(-130px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.actiuni {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.telefon {
+  font-family: var(--font-titluri), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.telefon:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 1199px) {
+  .telefon {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .rand {
+    gap: 12px;
+  }
+
+  .logoImg {
+    height: 22px;
+  }
+
+  .telefon {
+    display: none;
+  }
+
+  .actiuni {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 359px) {
+  .oferta {
+    padding: 0 12px;
+    font-size: 0.875rem;
+  }
+}
