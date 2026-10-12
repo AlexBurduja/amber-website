@@ -5,8 +5,9 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      // Formularul de ofertă: până la 5 poze de 5 MB, plus câmpurile text.
-      // Ca pe Vercel (~4,5 MB pe cerere). Formularul ține atașamentele sub 4 MB (lib/cerere.js).
+      // Formularul de ofertă trimite poze și, opțional, un plan. Limita e cea de pe Vercel
+      // (~4,5 MB pe cerere); formularul ține atașamentele sub 4 MB (lib/cerere.js).
+      // Pe alt server, reverse proxy-ul trebuie să accepte cel puțin atât (vezi HOSTING.md).
       bodySizeLimit: "4.5mb",
     },
   },

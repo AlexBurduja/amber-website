@@ -62,7 +62,7 @@ export default function Fabrica({ nivelTitlu = 2, cuLink = false, id = "fabrica"
             {modeleFrezare.map((m) => (
               <li key={m.src}>
                 <div className={styles.model}>
-                  <Image src={m.src} alt={`Front MDF frezat: ${m.nume.toLowerCase()}`} fill sizes="150px" className={styles.img} />
+                  <Image src={m.src} alt={m.alt} fill sizes="(min-width: 1024px) 260px, (min-width: 640px) 33vw, 50vw" className={styles.img} />
                 </div>
                 <p className={styles.numeModel}>{m.nume}</p>
               </li>

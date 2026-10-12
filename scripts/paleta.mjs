@@ -1,4 +1,5 @@
-// Extrage 4–5 culori dominante din pozele fiecărui proiect și etichetele de culoare pentru filtru.
+// Extrage culorile dominante din pozele fiecărui proiect și, din ele și din titluri, etichetele de
+// culoare pentru filtrul de pe /proiecte.
 // Rulează automat înainte de build (npm run prebuild) și scrie data/paleta.js.
 // Rulare manuală: npm run paleta
 import sharp from "sharp";
@@ -172,7 +173,6 @@ function etichete(proiect, paleta) {
 
 // ---------- rulare ----------
 
-const palete = {};
 const culori = {};
 
 for (const p of proiecte) {
@@ -212,18 +212,16 @@ for (const p of proiecte) {
     });
   }
 
-  palete[p.slug] = paleta;
   culori[p.slug] = etichete(p, paleta);
 }
 
+// Paleta în sine nu se mai publică (culorile din fotografii nu corespund finisajelor: iau și
+// parchetul, și pereții). Rămân doar familiile de culoare, pentru filtrul de pe /proiecte.
 const continut = `// Generat de scripts/paleta.mjs (npm run paleta, rulează automat la build). Nu edita manual.
-// palete: culorile dominante din pozele fiecărui proiect, aproximative.
 // culori: familiile de culoare folosite de filtrul de pe /proiecte.
-
-export const palete = ${JSON.stringify(palete, null, 2)};
 
 export const culori = ${JSON.stringify(culori, null, 2)};
 `;
 
 await writeFile(join(RADACINA, "data", "paleta.js"), continut);
-console.log(`Paleta generată pentru ${proiecte.length} proiecte.`);
+console.log(`Culori generate pentru ${proiecte.length} proiecte.`);

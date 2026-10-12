@@ -15,9 +15,7 @@ export const metadata = {
 export default function PoliticaConfidentialitate() {
   return (
     <PaginaText titlu="Politica de confidențialitate" href="/politica-de-confidentialitate">
-      <p>
-        <Todo>text de verificat de un jurist înainte de lansare</Todo>
-      </p>
+      <Todo ca="p">text de verificat de un jurist înainte de lansare</Todo>
 
       <h2>Cine prelucrează datele</h2>
       <p>
@@ -57,8 +55,11 @@ export default function PoliticaConfidentialitate() {
 
       <h2>Cât timp le păstrăm</h2>
       <p>
-        <Todo>durata de păstrare a cererilor</Todo>
+        Păstrăm datele din cererea ta cât e nevoie ca să pregătim oferta și, dacă mergem mai departe,
+        pentru contract. Dacă nu se încheie un contract, le ștergem după cel mult 12 luni de la
+        cerere.
       </p>
+      <p>Dacă vrei să le ștergem mai devreme, scrie-ne și o facem.</p>
 
       <h2>Drepturile tale</h2>
       <p>

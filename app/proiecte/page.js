@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ListaTreptata from "@/components/ListaTreptata";
 import { categorii, proiectePublicate } from "@/data/proiecte";
 import { areCuloarea, familiiCuloare } from "@/lib/culori";
+import { inCategorie } from "@/lib/proiecte";
 import { og } from "@/lib/metadata";
 import styles from "./page.module.css";
 
@@ -19,10 +20,6 @@ export const metadata = {
 function ordoneaza(lista) {
   // Pozele reale întâi; proiectele care au doar randări la final.
   return [...lista].sort((a, b) => Number(a.proiect3d) - Number(b.proiect3d));
-}
-
-function inCategorie(p, slug) {
-  return p.categorie === slug || p.categoriiSecundare?.includes(slug);
 }
 
 function link({ categorie, culoare }) {

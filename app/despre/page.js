@@ -96,9 +96,9 @@ export default function Despre() {
           </p>
         </div>
 
-        <div className={styles.bloc}>
-          <Todo>poze cu echipa și cu showroom-ul (sursa: „amber”)</Todo>
-        </div>
+        <Todo ca="div" className={styles.bloc}>
+          poze cu echipa și cu showroom-ul (sursa: „amber”)
+        </Todo>
       </section>
 
       <Fabrica nivelTitlu={2} id="fabrica-despre" />

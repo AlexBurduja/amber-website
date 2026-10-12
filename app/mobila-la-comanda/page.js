@@ -17,7 +17,7 @@ import { og } from "@/lib/metadata";
 export const metadata = {
   title: "Mobilă la comandă: bucătării, dormitoare, living",
   description:
-    "Mobilă la comandă produsă în fabrica noastră din București: ofertă estimativă din dimensiunile tale, proiect 3D, producție proprie și montaj cu echipa noastră.",
+    "Mobilă la comandă din fabrica noastră din București: ofertă estimativă din dimensiunile tale, proiect 3D, producție proprie și montaj cu echipa noastră.",
   alternates: { canonical: "/mobila-la-comanda" },
   openGraph: og("/mobila-la-comanda"),
 };

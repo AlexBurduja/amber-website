@@ -95,7 +95,7 @@ export const continutCategorii = {
     imagine: ["dressing-birou-masa-machiaj", 2],
     titluSecundare: "Dulapuri pe toată înălțimea",
     textSecundare:
-      "Dulapuri din proiectele de dormitor: pe toată lungimea peretelui, adaptate la panta mansardei sau combinate cu rafturi deschise.",
+      "Dulapuri din proiectele de dormitor și de living: pe toată lungimea peretelui, adaptate la panta mansardei sau combinate cu rafturi deschise.",
     cumLucram: {
       titlu: "Cum se gândește un dressing",
       paragrafe: [

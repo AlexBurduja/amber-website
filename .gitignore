@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 export-complet/
+
+# planșe de lucru cu poze din arhivele noi (case ale clienților; nu se publică)
+capturi/media-noi/

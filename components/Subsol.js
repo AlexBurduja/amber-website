@@ -70,9 +70,7 @@ export default function Subsol() {
                   <a href={linkTelefon(contact.telefon)}>{contact.telefon}</a>
                 </li>
               ) : (
-                <li>
-                  <Todo>telefon</Todo>
-                </li>
+                <Todo ca="li">telefon</Todo>
               )}
               {contact.whatsapp ? (
                 <li>
@@ -84,9 +82,7 @@ export default function Subsol() {
                   <a href={`mailto:${contact.email}`}>{contact.email}</a>
                 </li>
               ) : (
-                <li>
-                  <Todo>email</Todo>
-                </li>
+                <Todo ca="li">email</Todo>
               )}
               {contact.adresaShowroom ? (
                 <li className={styles.adresa}>
@@ -100,11 +96,7 @@ export default function Subsol() {
                   {adresaText(contact.adresaFabrica)}
                 </li>
               ) : null}
-              {!contact.program ? (
-                <li>
-                  <Todo>programul showroom-ului</Todo>
-                </li>
-              ) : null}
+              {!contact.program ? <Todo ca="li">programul showroom-ului</Todo> : null}
               {social.map(([retea, url]) => (
                 <li key={retea}>
                   <a href={url} rel="noopener">
@@ -112,11 +104,7 @@ export default function Subsol() {
                   </a>
                 </li>
               ))}
-              {social.length === 0 ? (
-                <li>
-                  <Todo>linkuri TikTok, Instagram, Facebook</Todo>
-                </li>
-              ) : null}
+              {social.length === 0 ? <Todo ca="li">linkuri TikTok, Instagram, Facebook</Todo> : null}
             </ul>
           </div>
         ) : null}
@@ -136,7 +124,7 @@ export default function Subsol() {
             <Link href="/cookies">Cookies</Link>
           </li>
           <li>
-            <a href="https://anpc.ro/ce-este-sal/" rel="noopener">
+            <a href="https://reclamatiisal.anpc.ro/" rel="noopener">
               ANPC, soluționarea alternativă a litigiilor
             </a>
           </li>

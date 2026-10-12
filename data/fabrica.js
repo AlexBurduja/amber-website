@@ -1,6 +1,6 @@
 // Etapele de producție din fabrica proprie și materialele folosite (confirmate de Alex).
-// Pozele din fabrică și modelele de frezare provin din prezentarea firmei (materiale/*.pdf),
-// procesate în public/fabrica/: metadate șterse, siglele utilajelor reconstruite.
+// Pozele din fabrică și mostrele de fronturi sunt fotografii din arhiva foto (ședința din fabrică),
+// procesate în public/fabrica/: metadate șterse, sRGB, fără numele sau siglele vreunui producător.
 
 export const etape = [
   {
@@ -40,34 +40,35 @@ export const etape = [
 export const pozeFabrica = [
   {
     src: "/fabrica/fabrica-debitare.jpg",
-    alt: "Mașină de debitat panouri în fabrica Amber, cu o placă albă pe masa de lucru",
+    alt: "O placă de PAL împinsă sub apărătoarea circularului de debitat",
     eticheta: "Debitare",
-    latime: 593,
-    inaltime: 326,
+    latime: 2000,
+    inaltime: 1333,
   },
   {
     src: "/fabrica/fabrica-vopsitorie.jpg",
-    alt: "Vopsirea unui front MDF cu pistolul, în cabina de vopsit",
+    alt: "Vopsirea unei piese de MDF cu pistolul, în cabina de vopsit",
     eticheta: "Vopsitorie",
-    latime: 593,
-    inaltime: 396,
+    latime: 2000,
+    inaltime: 1333,
   },
   {
     src: "/fabrica/fabrica-frezare-cnc.jpg",
-    alt: "Utilaj CNC frezând fronturi dintr-o placă de MDF",
+    alt: "Capul unui utilaj CNC, cu perie de aspirare, frezând o placă albă",
     eticheta: "Frezare CNC",
-    latime: 593,
-    inaltime: 292,
+    latime: 2000,
+    inaltime: 1215,
   },
 ];
 
+// Mostre de fronturi din fabrică. `alt` descrie ce se vede în fotografie.
 export const modeleFrezare = [
-  { src: "/fabrica/frezare-rama-clasica-albastru.jpg", nume: "Ramă clasică, vopsit albastru" },
-  { src: "/fabrica/frezare-panou-tesit.jpg", nume: "Panou cu margini teșite" },
-  { src: "/fabrica/frezare-arcada-dubla.jpg", nume: "Arcadă cu umeri" },
-  { src: "/fabrica/frezare-arcada.jpg", nume: "Arcadă" },
-  { src: "/fabrica/frezare-riflaj.jpg", nume: "Riflaj vertical" },
-  { src: "/fabrica/frezare-rama-simpla.jpg", nume: "Ramă simplă" },
+  { src: "/fabrica/frezare-rama-clasica-trei-nuante.jpg", nume: "Ramă clasică, în trei nuanțe", alt: "Trei fronturi MDF cu ramă clasică frezată, vopsite taupe, crem și alb" },
+  { src: "/fabrica/frezare-medalion-oval.jpg", nume: "Medalion oval", alt: "Fronturi MDF cu medalion oval frezat, unul cu contur auriu" },
+  { src: "/fabrica/frezare-model-geometric.jpg", nume: "Model geometric", alt: "Două fronturi MDF cu modele geometrice frezate, vopsite galben și crem" },
+  { src: "/fabrica/frezare-rama-in-trepte-verde-menta.jpg", nume: "Ramă în trepte, verde mentă", alt: "Front MDF verde mentă cu ramă frezată în trepte" },
+  { src: "/fabrica/frezare-maner-in-front.jpg", nume: "Mâner frezat în front", alt: "Fronturi cu mâner frezat direct în muchie, unul verde petrol" },
+  { src: "/fabrica/frezare-panou-decupat.jpg", nume: "Panou decupat", alt: "Panou MDF decupat cu model de linii, vopsit crem" },
 ];
 
 // Materiale și feronerie. Doar nume, fără siglele furnizorilor.

@@ -429,3 +429,301 @@ Legendă: **[V]** = trebuie verificat de tine; **[i]** = doar informativ.
   - toate cazurile de eroare se comportă ca înainte;
   - lint curat, build reușit, detectorul impeccable fără probleme.
 - **[i] Capturi noi în `capturi/`:** `cerere-oferta-*` refăcute, plus `cerere-oferta-ghid-deschis-390.png`.
+
+---
+
+## 15. Pregătirea pentru prezentare și pentru mutarea pe ambermob.ro
+
+### Indexare
+- **[i] Doar `ambermob.ro` și `www.ambermob.ro` se indexează.** Pe orice altă gazdă (`*.vercel.app`, localhost, IP-ul serverului), `proxy.js` pune antetul `X-Robots-Tag: noindex, nofollow` pe fiecare răspuns, inclusiv pe imagini, și servește un robots.txt cu `Disallow: /`. Lista de gazde e în `lib/site.js` (`gazdeIndexabile`).
+- **[V] De ce antet, și nu doar eticheta meta robots.**
+  - Aceeași versiune a site-ului răspunde pe mai multe domenii, deci gazda se află abia la cerere.
+  - O etichetă meta pusă pe server după gazdă ar fi obligat toate paginile să se randeze la fiecare cerere, în loc să fie statice.
+  - Pentru motoarele de căutare, antetul are același efect ca eticheta.
+  - În plus, pe alte gazde un script mic din `app/layout.js` adaugă și eticheta `<meta name="robots" content="noindex, nofollow">` în pagină. Ea nu e în HTML-ul trimis de server, ci apare la încărcare.
+- **[i] Testat** cu antetul `Host` pentru: ambermob.ro și www (fără noindex, robots.txt cu `Allow`), localhost, o adresă `*.vercel.app` și `ambermob.ro.evil.com` (toate cu noindex și `Disallow`).
+- **[V] Atenție la mutare:** reverse proxy-ul trebuie să transmită antetul `Host` real. Altfel tot site-ul primește noindex, inclusiv pe ambermob.ro. Detalii și comanda de verificare sunt în HOSTING.md, secțiunea 5.
+
+### Date lipsă și elemente goale
+- **[i] Cauza:** în producție marcajul `Todo` nu afișa nimic, dar elementul din jurul lui rămânea gol. Erau: două `<li>` în subsol (program, rețele sociale), câte un `<p>` la începutul celor două pagini legale, `<p>`-ul din „Cât timp le păstrăm” și un bloc gol pe /despre.
+- **[i] Reparația:** `Todo` își randează singur învelișul (`<Todo ca="li">`), deci dispare cu totul în producție.
+- **[i] Verificat** în HTML-ul brut al tuturor celor 79 de pagini: niciun `<li>`, titlu, `<dd>` sau link gol, niciun „TODO”, niciun „2013”. Singurul `<p>` gol e zona de anunțuri pentru cititoarele de ecran din formular, ascunsă cât e goală.
+- **[i] Datele care lipsesc încă** (program, WhatsApp, CUI, Google Business, rețele sociale) nu lasă nicio urmă pe site.
+
+### Politica de confidențialitate
+- **[V] „Cât timp le păstrăm”:** datele din cerere se păstrează cât e nevoie pentru ofertă și pentru eventualul contract; fără contract, se șterg după **cel mult 12 luni** de la cerere. Am adăugat și că le ștergem mai devreme la cerere. **Confirmă termenul de 12 luni.**
+- **[V] Rămân de completat** în pagină (invizibile acum): CUI-ul și adresa sediului, numele furnizorului de email și al firmei de hosting. Textul întreg trebuie văzut de un jurist înainte de lansare.
+
+### Numărul de proiecte
+- **[i]** Homepage-ul și /mobila-la-comanda numărau doar categoria principală, iar /proiecte și paginile de categorie includeau și categoriile secundare. Acum toate folosesc aceeași funcție, `inCategorie` din `lib/proiecte.js`.
+- **[i] Verificat** în 7 locuri pentru fiecare categorie (filtru, carduri, textul de rezultat, homepage, /mobila-la-comanda, pagina de categorie, butonul ei): bucătării 20, dressinguri 4, dormitoare 16, living 10, hol și baie 13, comercial 5.
+- **[i]** Suma pe categorii (68) e mai mare decât totalul de 65, pentru că 3 dormitoare apar și la dressinguri.
+
+### Paleta de culori
+- **[i]** Am scos mostrarul de pe paginile de proiect și componenta lui. Scriptul `scripts/paleta.mjs` rulează în continuare la build, dar scrie doar familiile de culoare pentru filtrul de pe /proiecte.
+
+### Logo
+- **[i]** Linkul din antet are numele accesibil „Amber, pagina principală”, iar logo-ul (SVG inline) are `role="img"`, `aria-label="Amber"` și, acum, și `<title>`. Verificat pe toate paginile.
+
+### Verificarea completă
+- **[i] Parcurgere:** toate cele 79 de adrese din sitemap, plus pagina 404, la 1440px și 390px.
+  - **Verificat pe fiecare:** starea HTTP, erorile din consolă, cererile eșuate, cele 693 de imagini, elementele goale, textele suspecte, derularea orizontală, un singur `h1`, `title` ≤ 60, `description` ≤ 155, canonical.
+  - **Găsit și reparat:**
+    - descrierile meta de pe homepage (164 de caractere) și /mobila-la-comanda (159) depășeau limita; acum au 151 și 152;
+    - linkul ANPC din subsol dădea 404 (pagina a fost mutată); acum duce la `https://reclamatiisal.anpc.ro/`.
+  - **Restul:** nicio eroare.
+- **[i] Linkuri:** 103 adrese unice verificate (interne și externe), toate răspund 200 după corectură.
+- **[i] Meniul de pe mobil:** pe 16 tipuri de pagini se deschide, se închide (buton, Esc, click pe link), blochează derularea, ține focusul înăuntru și revine la poziția de derulare.
+- **[i] Comparatorul:** merge cu tastatura (săgeți, Home) și cu click, la ambele lățimi; comutarea între cele 4 perechi de pe homepage arată câte una.
+- **[i] Galeria pe tot ecranul:** se deschide, trece înainte și înapoi, se închide cu Esc și dă focusul înapoi pe imagine.
+- **[i] /proiecte:** „Arată mai multe” duce de la 12 la 65 în 5 apăsări, cu toate imaginile încărcate; filtrele se combină, se scot și se resetează corect; toate cele 50 de combinații categorie × culoare din meniu au exact numărul de proiecte afișat.
+- **[i] Formularul:** 28 din 28 de trimiteri reușite (14 variante × 2 lățimi, inclusiv una doar cu câmpurile obligatorii), plus cazurile de eroare. Cea mai mare cerere: 2,7 MB.
+- **[i] Limite ale verificării:**
+  - **Browser:** de data asta am rulat doar în Chromium. Meniul fusese testat și în WebKit data trecută și nu l-am schimbat.
+  - **Fontul în Safari:** observația despre titlurile subțiri în WebKit (secțiunea 12) rămâne de verificat pe un iPhone real.
+  - **Email:** a fost trimis către un server local care imită Resend, nu către Resend.
+
+### Hosting
+- **[i]** Am scris `HOSTING.md`, cu tot ce are nevoie site-ul pe alt server decât Vercel. Nu am schimbat nimic în cod pentru asta.
+- **[V] `materiale/` și `capturi/` nu sunt în `.gitignore`.** `materiale/` conține prezentarea firmei, cu nume de clienți. Nu sunt servite vizitatorilor, dar ar intra în depozit la primul commit. Nu le-am adăugat eu în `.gitignore`, pentru că ai cerut să nu schimb nimic încă; recomand să o faci.
+
+## 16. Arhivele foto 2020–2022 (inventar și propuneri, nimic publicat)
+
+### Ce am făcut și ce nu
+- **[i] Nimic nu e publicat și nu am schimbat codul site-ului.** Singura schimbare din proiect: linia `capturi/media-noi/` în `.gitignore`.
+- **[V] Exportul static.** Ai cerut să fac asta „după ce termin exportul static”. În conversația noastră nu am avut o astfel de sarcină și nu am început una: `next.config.mjs` nu are `output: "export"` și nu există folderul `out/`. Inventarul s-a făcut în întregime în afara codului, deci nu se poate încurca cu el. Dacă vrei export static, spune-mi; HOSTING.md explică de ce site-ul nu merge acum ca site static (formularul, optimizarea imaginilor, filtrele).
+- **[i] Unde sunt fișierele:**
+  - **arhivele dezarhivate:** `E:\dev\amber-media-noi\original\` (11 GB), în afara proiectului;
+  - **inventarul:** `E:\dev\amber-media-noi\inventar-clasificat.csv`, un rând pe imagine;
+  - **planșele:** `capturi/media-noi/` (39 de planșe, 16 MB, legenda în `CITESTE.md`).
+- **[i] De ce inventarul stă în afara proiectului:** căile fișierelor conțin numele firmei vechi și numele clienților. Planșele folosesc etichete neutre.
+
+### Inventar
+- **[i] Conținut:** 1.258 de fișiere, toate JPG, 11,76 GB (2020: 642, 2021: 202, 2022: 414). **Niciun videoclip,** deci nu există durate și nici cadre video pe planșe.
+- **[i] Rezoluție:** latura mare are între 850 și 8.268 px, cu mediana 5.578 px (20,9 megapixeli). 1.256 din 1.258 au peste 2.400 px. Pozele de pe site au acum, la proiectele regăsite, o mediană de 1.380 px.
+- **[i] Fișiere:** între 0,4 și 23 MB, mediana 9,6 MB. Sunt făcute cu același aparat, între octombrie 2019 și august 2022.
+- **[i] Metadate:** nicio imagine nu are coordonate GPS, autor sau copyright în EXIF. La publicare metadatele se șterg oricum.
+- **[i] Duplicate exacte:** 68 (0,55 GB), toate dintr-un folder de selecție copiat de două ori. Rămân **1.190 de imagini unice.**
+- **[i] Aproape identice:** doar 2 perechi (același cadru, decupat puțin diferit).
+- **[i] Colaje:** 75 de colaje făcute de fotograf. Cadrele din ele există și separat, deci colajele nu se folosesc.
+- **[i] Regăsite în ce aveam deja:**
+  - 136 din cele 396 de imagini din `export-complet/` au originalul în arhivele noi;
+  - 101 din cele 226 de imagini publicate pe site, din **35 de proiecte**, au originalul aici.
+- **[V] Limita potrivirii:** am comparat amprente vizuale, iar pozele de pe site sunt micșorate și uneori decupate. Unele cadre marcate „noi” la proiectele existente pot fi de fapt variante ale unora deja publicate. Se vede pe planșe.
+
+### Clasificare
+- **[i] Tipuri:** 1.155 de fotografii reale și 35 de imagini „altele” (semne cu numele vechi, exteriorul unui centru comercial, peisaje, desene de mână, o pisică, aparatul fotografului). **Nicio randare și niciun desen tehnic.**
+- **[i] Calitate:** fotografii profesionale; 19 marcate slabe (neclare sau cu spațiul dezordonat).
+- **[V] Numele firmei vechi** apare în 19 imagini: 5 din fabrică (bannere și un panou) și 14 din showroom (standuri, firma luminoasă, exteriorul). Sunt excluse și nu apar pe planșe.
+  - Detecția automată de text l-a găsit doar în imagini pe care le marcasem deja, dar a ratat 11 dintre ele, deci nu e o garanție.
+- **[V] Persoane:** nicio persoană fotografiată direct. 16 imagini au persoane reale altfel: pe ecranul televizorului, imprimate pe uși de dulap (fotbaliști), în reflexie sau în fundalul showroom-ului. Sunt propuse spre excludere. În fabrică se văd doar mâini și brațe.
+- **[V] Fotografii personale:** 34 de imagini cu fotografii de familie înrămate, portrete sau frigidere acoperite cu poze. Se pot folosi doar decupate ori retușate, sau se aleg alte cadre din aceeași cameră.
+- **[V] Sigle și mărci terțe:** 68 de imagini (mărci de băuturi în magazinul de vinuri, sigla unui client în showroom-ul lui, mărcile utilajelor, mostrarele furnizorilor).
+- **[V] Cum am clasificat:** m-am uitat la toate cele 1.190 de imagini ca miniaturi de 720 px și am rulat detecție automată de fețe și de text la 2.000 px. **Nu am deschis fiecare poză la rezoluție completă.** Înainte de publicare, fiecare cadru ales trebuie verificat mărit.
+
+### Grupare: 189 de grupuri (camere sau piese), din 41 de ședințe foto
+
+| Ce sunt | Grupuri | Imagini | Propuse ca utilizabile |
+| --- | --- | --- | --- |
+| Proiecte noi | 116 | 681 | 600 |
+| Proiecte care există pe site | 33 | 314 | 292 |
+| Pe site, dar nepublicate (aveau o singură poză) | 2 | 12 | 11 |
+| Fabrică | 17 | 76 | 76 |
+| Showroom | 11 | 55 | 48 |
+| Excluse | 10 | 52 | 0 |
+
+- **[i] Proiecte noi cu cel puțin 4 cadre utilizabile: 76,** din 31 de locuințe și spații:
+
+  | Categorie | Grupuri noi | Cu cel puțin 4 cadre | Pe site acum |
+  | --- | --- | --- | --- |
+  | Bucătării | 19 | 17 | 20 |
+  | Dressinguri | 5 | 4 | 1 propriu (4 cu cele secundare) |
+  | Dormitoare | 31 | 24 | 16 |
+  | Living | 24 | 13 | 10 |
+  | Hol și baie | 36 | 17 | 13 |
+  | Comercial | 1 | 1 | 5 |
+
+- **[i] Proiecte existente:** 35 regăsite, cu 203 cadre care nu sunt pe site. 24 dintre ele au acum pe site poze sub 1.600 px, iar originalele au între 4.500 și 6.000 px.
+- **[i] Întrebarea rămasă din secțiunea 10 are răspuns:** holul cu dulapuri albe încastrate (nepublicat) e din aceeași ședință foto cu holul alb și gri-lila, cu livingul alb cu vitrină și cu baia bej cu riflaj. E același apartament.
+- **[i] Randările de pe site nu au pereche aici.** Am comparat cele 4 proiecte publicate doar ca „Proiect 3D” cu pozele noi: sunt alte spații.
+- **[i] Fabrica:** cele 3 poze de pe site, luate din prezentare la 593 px, par din această ședință. Scenele există aici la peste 5.000 px, plus mostre de fronturi frezate, panouri decupate și etapele de șlefuire, polișare, uscare și vopsire.
+
+### Propunerile mele (de decis de tine)
+- **[V] 1. Întâi înlocuirea pozelor la proiectele existente.** Aceleași adrese, poze de 4–5 ori mai mari și cadre în plus. Două proiecte nepublicate pot fi publicate: bucătăria neagră mat în L (6 cadre) și camera de copil verde cu pat-căsuță (5 cadre). Holul cu dulapuri albe se poate uni cu holul alb și gri-lila.
+- **[V] 2. Un prim lot de proiecte noi, nu toate.** Aș începe cu:
+  - **dressingurile** (4 grupuri), pentru că pagina de dressinguri are un singur proiect propriu;
+  - **bucătăriile** cu multe cadre curate (17 grupuri);
+  - **barul negru cu auriu,** singurul proiect comercial nou;
+  - apoi dormitoarele, livingurile și băile cele mai reușite.
+- **[V] 3. Fabrica:** înlocuirea celor 3 poze mici și a modelelor de frezare cu cele de aici. Patru cadre au marca utilajului și trebuie retușate, ca data trecută.
+- **[V] 4. Showroom-ul: nu l-aș folosi.** E standul firmei vechi dintr-un centru de mobilă, fotografiat în 2020, cu numele vechi pe standuri și cu etichete de preț. Dacă showroom-ul de acum arată altfel, pozele ar induce în eroare. Merită poze noi.
+- **[V] 5. Sursa în date.** Pozele sunt din perioada firmei vechi, deci le-aș marca `sursa: "arhiva"`, ca până acum.
+
+### Întrebări pentru tine
+- **[V] Drepturi:** pozele sunt făcute de un fotograf extern. Aveți dreptul să le folosiți pe site-ul nou?
+- **[V] Acordul clienților:** mai ales pentru bar, magazinul de vinuri și showroom-ul clientului, unde se văd mărci și spațiul e recunoscut ușor.
+- **[V] Showroom:** standul din 2020 e același cu showroom-ul de acum de pe Șos. Colentina?
+- **[V] Fotografiile de familie din cadre:** decupăm și retușăm, sau folosim doar cadrele fără ele?
+
+## 17. Lotul 1: originale la rezoluție mare pentru proiectele existente
+
+Niciun proiect nou. Adresele paginilor nu s-au schimbat. Pornește de la inventarul arhivelor foto 2020–2022 din `E:\dev\amber-media-noi\` (secțiunea 16).
+
+### Ce s-a schimbat
+- **[i] Înlocuiri:** 104 poze publicate, din 35 de proiecte, au acum originalul din arhive. Sunt aceleași cadre, cu aceleași nume de fișier.
+- **[i] Cadre noi:** 20, în 14 proiecte. Le-am ales doar unde arată altceva decât cadrele deja publicate (alt unghi, un detaliu, altă parte a camerei).
+- **[i] Publicate acum:** bucătăria neagră mat în L (4 cadre) și camera de copil verde cu pat-căsuță (3 cadre).
+- **[i] Unire:** holul cu dulapuri albe încastrate a intrat în `hol-alb-dulap-incastrat-gri-lila`, care are acum 3 cadre și o descriere nouă. Proiectul vechi nu fusese publicat, deci nu se pierde nicio adresă.
+- **[i] Secțiunea 16** dispăruse din acest fișier în timpul lucrului. Nu era în git (ultimul commit se oprește la secțiunea 14), așa că am pus-o la loc, neschimbată, din citirea făcută la începutul sesiunii.
+- **[i] Rezoluție:** latura mare are mediana 2.400 px (înainte 1.380 px la proiectele regăsite). 132 din 235 de imagini au 2.400 px.
+- **[i] Rămase mici:** 63 de imagini au sub 1.600 px. Sunt randările și proiectele din alte ședințe foto, care nu au original în arhive.
+- **[i] Prima imagine din hero** (bucătăria verde salvie) are 2.800 px. Restul au cel mult 2.400 px.
+- **[i] Procesare:** metadate șterse, conversie din Adobe RGB în sRGB, JPEG progresiv la calitate 86. `sursa` rămâne `"arhiva"`.
+- **[i] Proiecte publicate acum: 66 din 71.** Bucătării 21, dressinguri 1 propriu, dormitoare 17, living 10, hol și baie 13, comercial 4.
+
+### Ce am scos din cadre
+Fiecare cadru a fost verificat la 2.400 px, nu ca miniatură.
+
+- **[i] Decupate (11 cadre):** persoane reale (o copertă de revistă, un portret, capul fotografului în oglindă, o mână la margine), rafturi cu sticle și cosmetice cu mărci lizibile. `living-dining-alb-cu-rama-vitrina-02` a devenit un detaliu cu paharele din vitrină și are text alternativ nou.
+- **[i] Retușate (18 cadre):**
+  - **reconstruite pe fundal uniform:** fotografii lipite pe frigider și pe perete, un număr de înmatriculare văzut pe fereastră, sigla unui client pe două cămăși, un odorizant cu marcă, sigla unui televizor;
+  - **etichete de flacoane** (baia bej): umplute cu culoarea flaconului;
+  - **fotografii de familie în rame:** făcute de nerecunoscut;
+  - **5 televizoare aprinse** (persoane, sigle de posturi, un număr de telefon): redate stinse.
+- **[V] Retușurile se văd dacă le cauți** la mărire completă (frigiderul din `bucatarie-bej-mat-lemn-masiv-01`, flacoanele din baia bej). La mărimea din pagină nu se observă.
+- **[i] Două cadre scoase (decizia ta):** `hol-comoda-bar-scara-lemn-01` (raft plin de sticle cu etichete) și `receptie-gri-placare-iluminata-01` (afișe cu numele proiectelor clientului). Nu se puteau curăța.
+  - **Holul cu comodă-bar** rămâne publicat, cu 2 cadre. Imaginea principală e acum comoda cu rafturi deschise, iar descrierea a fost ajustată.
+  - **[V] Recepția gri a rămas cu o singură poză** (un detaliu al placării iluminate), deci am trecut-o pe `publicat: false`, după regula folosită până acum. Pagina ei nu mai există, iar la comercial sunt 4 proiecte. Se republică schimbând un singur cuvânt în `data/proiecte.js`, dacă preferi o pagină cu o singură poză.
+  - Cele două cadre sunt marcate ca nefolosite și în evidența internă din `export-complet/`.
+- **[i] Rămân în cadre (decizia ta):** siglele mici ale electrocasnicelor încastrate (cuptor, hotă, cuptor cu microunde) și cotoarele unor cărți.
+- **[i] Cadre noi respinse la verificare (12):** reflexia sau silueta fotografului (3), număr de înmatriculare lizibil, ambalaje și cosmetice cu mărci (2), un fundal dezordonat cu fotografii pe perete, rame cu numele copiilor, o revistă cu o persoană pe copertă, sigla clientului pe perete, materiale cu marca unui furnizor, o variantă a unui cadru deja publicat.
+
+### Fabrica
+- **[V] Nu sunt aceleași cadre, ci echivalente.** Pozele din prezentare nu au original în arhive; ce scrisesem în inventar („scenele există aici la peste 5.000 px”) era greșit. Am ales alte cadre din ședința din fabrică, cu aceleași trei etape: debitare, vopsitorie, frezare CNC (2.000 px). Textele alternative sunt noi.
+- **[i] Modelele de frezare sunt altele:** 6 fotografii reale de mostre (1.600 px), în locul celor 6 decupaje din PDF. Numele s-au schimbat după ce se vede: ramă clasică în trei nuanțe, medalion oval, model geometric, ramă în trepte verde mentă, mâner frezat în front, panou decupat. Confirmat de tine: toate rămân.
+- **[i] Marca utilajului:** am ales cadre în care nu apare. La cel de frezare am tăiat marginea de sus, unde se ghicea o inscripție. Nu a fost nevoie de reconstrucție.
+- **[i] Fără persoane identificabile:** se văd doar mâini și brațe. Nu apar numele vechi sau etichete de preț.
+- **[i] Grila de modele** are acum 3 coloane (2 pe mobil), cu imagini 3:2.
+- **[i] Showroom:** nu am folosit nimic.
+
+### Verificare
+- **[i] Fișiere:** 244 de imagini în date, 244 pe disc, dimensiuni identice. Fără EXIF, ICC sau XMP. Numele vechi și numele fotografului nu apar în octeți sau în numele fișierelor.
+- **[i] Lint și build:** curate (155 de pagini, 80 de adrese în sitemap).
+- **[i] Pagini:** 45 de pagini atinse, la 1440 px și 390 px: fără erori, fără derulare orizontală, toate imaginile se încarcă. După scoaterea celor două cadre am reverificat paginile afectate (proiectul de hol, cele două categorii, /proiecte, homepage, /mobila-la-comanda).
+- **[i] Spațiu:** `public/` are 68 MB (înainte 33 MB), adică 1,3% din cei 5 GB.
+- **[V] Verificarea mea are limite.** M-am uitat la fiecare cadru la 2.400 px și am rulat detecție de fețe și de text, dar un obiect mic cu marcă îmi poate scăpa. Trei mărci lizibile le-am găsit abia la ultima trecere.
+- **[i] Evidența:** `E:\dev\amber-media-noi\lot1-publicat.json` leagă fiecare fișier publicat de original, cu decupajul și retușul aplicat. Copia de dinainte e în `backup-inainte-lot1\`.
+
+### Două probleme găsite pe drum (vezi HOSTING.md, secțiunea 6)
+- **[V] Pozele înlocuite sub același nume apar cu întârziere.** Serverul și browserele păstrează varianta optimizată veche. La o înlocuire trebuie șters `.next/cache/images` și repornită aplicația; vizitatorii care au văzut deja poza o primesc pe cea nouă în cel mult 4 ore.
+- **[V] Optimizatorul de imagini se poate bloca.** Când cererile de imagini sunt întrerupte de client în timp ce serverul le generează prima dată, unele imagini nu mai răspund nimănui până la repornire. Am reprodus problema, dar nu i-am stabilit mecanismul exact. Nu ține de lotul 1 și nu am schimbat nimic în cod; e o decizie de luat înainte de mutarea pe serverul propriu.
+
+## 18. Lotul 2: proiecte noi din arhivele foto
+
+Drepturile asupra pozelor sunt confirmate de tine: Amber Creativity le poate folosi integral, pe site și pe rețelele sociale. Cu asta se închide întrebarea despre drepturi din secțiunea 16.
+
+### Ce s-a adăugat
+- **[i] 44 de proiecte noi, cu 204 cadre.** Pe site sunt acum 110 proiecte publicate (înainte 66) și 448 de imagini.
+- **[i] Pe categorii:**
+
+  | Categorie | Noi | Total publicate |
+  | --- | --- | --- |
+  | Bucătării | 11 | 32 |
+  | Dressinguri | 4 | 5 proprii (11 cu cele secundare) |
+  | Dormitoare | 15 | 32 |
+  | Living | 6 | 16 |
+  | Hol și baie | 8 | 21 |
+  | Comercial | 0 | 4 |
+
+- **[i] Cadre pe proiect:** între 3 și 7. Trei proiecte au doar 3 cadre, restul 4–7.
+- **[i] De ce 44 și nu 50:** din 75 de grupuri candidate am ales 49 la triere, iar 5 au căzut la verificarea la rezoluție mare. Cele 6 rezerve nu le-am folosit, fiindcă erau mai slabe decât restul.
+- **[i] Evidența:** `E:\dev\amber-media-noi\lot2-publicat.json` (fiecare fișier publicat, cu originalul, decupajul și retușul). Starea de dinainte: `backup-inainte-lot2\`.
+
+### Cum am ales
+- **[i] Dressinguri:** toate cele bune. Din cele 4 candidate au intrat 3; al patrulea (dressingul alb de la mansardă) a căzut la verificare. Am adăugat un proiect pe care inventarul îl avea la dormitoare: dulapuri albe cu nișă și comode albastre.
+- **[i] Fără bucătării aproape identice.** Am lăsat pe dinafară 6 bucătării: două clasice (albă și crem), una albă lucioasă, una cappuccino, una negru lucios cu crem și una neagră cu blat de lemn. Cinci sunt apropiate de ce e deja publicat, iar cea negru lucios arată datat. Din clasice am păstrat una singură, cea cu cadrele cele mai curate.
+- **[V] Bucătăria bleu pal cu uși cu lamele** era trecută în inventar ca „verde mentă”. Am comparat-o cu bucătăria verde mentă deja publicată: sunt bucătării diferite.
+- **[i] Spațiile comerciale:** niciunul, cum ai cerut. Barul negru cu auriu rămâne pentru alt lot.
+- **[i] Grup nou pe pagina de living:** „Birouri și biblioteci”, pentru biroul cu bibliotecă gri cu arcade.
+- **[V] Categorii secundare doar spre dressinguri.** Trei proiecte apar și pe pagina de dressinguri (camera de fetiță cu dulap roz, dulapul cu uși tip shoji, peretele de dulapuri cu televizor încastrat). Celelalte pagini de categorie nu au text pentru proiecte secundare, așa că livingul cu bucătărie albă apare doar la living, iar dulapurile de hol cu spălătorie doar la dressinguri.
+- **[i]** Textul secțiunii „Dulapuri pe toată înălțimea” de pe pagina de dressinguri spune acum „din proiectele de dormitor și de living”.
+
+### Texte
+- **[i] Scrise din ce se vede în cadrele finale,** proiect cu proiect. Nicio propoziție și niciun text alternativ nu se repetă între proiecte sau față de cele existente (verificat automat).
+- **[i] Materialele sunt descrise după aspect:** „decor de stejar”, „aspect de marmură”, „aspect de beton”. Nu am scris „lemn masiv”, „marmură” sau „MDF” acolo unde nu se poate ști din poză. Excepție: am scris „MDF vopsit” la trei proiecte cu fronturi frezate, unde frezarea se vede.
+- **[V] De verificat de tine:** dacă vreun material e altul decât pare (de exemplu blaturile „de lemn” din bucătării, care pot fi PAL cu decor).
+- **[i] Titluri:** toate au cel mult 52 de caractere, cât încape în titlul paginii fără să fie tăiat. Am scurtat 21 dintre ele după prima variantă.
+
+### Ce am scos din cadre
+Fiecare cadru ales a fost verificat la 2.400 px. Am mărit separat fiecare zonă în care detecția automată a găsit o față sau un text.
+
+- **[i] Decupate (5 cadre):** un pătuț cu marca producătorului (2), un frigider acoperit cu magneți, sticle de apă cu etichetă, o ramă cu amprentele unui copil.
+- **[i] Retușate (15 cadre):**
+  - **fotografii și obiecte personale făcute de nerecunoscut (11):** un tablou cu fotografia unui copil, o caricatură de familie și o ramă cu nume, fotografii înrămate pe noptieră și pe comodă, un colaj de fotografii pe un raft, albume cu nume pe cotoare;
+  - **televizoare redate stinse (2):** unul arăta sigla unui post TV, celălalt o reclamă;
+  - **text umplut (2):** marca de pe o cutie de sub o banchetă.
+- **[i] Rămân în cadre,** după regula stabilită la lotul 1: siglele electrocasnicelor, cotoarele cărților, jucăriile din camerele de copii, încălțările și detergenții din dulapuri.
+- **[V] Două lucruri pe care le-am lăsat și pe care le poți vrea scoase:**
+  - o iconiță mică pe o noptieră (dormitorul verde salvie, cadrul 2);
+  - un panou imprimat cu o grafică despre tehnologie, cu cuvinte în engleză (patul rabatabil cu canapea). E parte din mobilă, nu o marcă.
+- **[i] Detecția automată pe fișierele finale:** 60 de zone semnalate ca fețe, toate jucării, obiecte sau modele de pe textile. Nicio persoană reală. Numele vechi nu apare în niciun text citit și nici în octeții fișierelor.
+- **[V] Limita verificării rămâne aceeași:** un obiect mic cu marcă îmi poate scăpa.
+
+### Proiecte care au căzut la verificarea la rezoluție mare
+- **Dressingul alb de la mansardă:** cosmetice cu mărci în prim-plan.
+- **Băile cu mobilier alb și de stejar** și **baia roz:** capace de WC ridicate și ambalaje cu mărci.
+- **Dormitorul cu dulap pe colț gri** și **camera de birou cu canapea în nișă:** fotografii de familie în toate cadrele.
+
+### Proiecte nealese (31), ca să poți adăuga din ele mai târziu
+Numerele din coloana „Imagini” sunt cele din inventar și de pe planșele din `capturi/media-noi/`. „Nr.” e numărul grupului din `E:\dev\amber-media-noi\lucru\lot2-grupuri.json`.
+
+| Nr. | Categorie | Ce este | Imagini în inventar | De ce nu |
+| --- | --- | --- | --- | --- |
+| G04 | Dressinguri | Dressing cu rafturi albe | 1222, 1249–1253 (5 utilizabile) | Cosmetice cu mărci în prim-plan în 3 din 5 cadre; rămân 2 cadre distincte. |
+| G07 | Bucătării | Bucătărie crem clasică | 909–916 (7 utilizabile) | Seamănă cu bucătăria crem cu ramă deja publicată; cadre aglomerate. |
+| G11 | Bucătării | Bucătărie negru lucios cu crem | 294–298 (5 utilizabile) | Aspect datat, sertare deschise pline, sticle cu mărci. |
+| G15 | Bucătării | Bucătărie albă lucioasă cu blat gri | 870–883 (12 utilizabile) | Seamănă cu bucătăriile albe deja publicate; blat aglomerat. |
+| G16 | Bucătării | Bucătărie cappuccino lucios cu insulă și blat de granit | 269–289 (21 utilizabile) | Același finisaj ca bucătăria cappuccino publicată. **Rezervă bună:** cadre curate 289, 280, 276, 284, 286. |
+| G19 | Bucătării | Bucătărie albă clasică cu blat de lemn | 754, 758–762 (5 utilizabile) | Ar fi fost a treia bucătărie clasică albă sau crem; blat aglomerat. |
+| G20 | Bucătării | Bucătărie neagră cu blat de lemn | 1219, 1228–1239 (12 utilizabile) | Există deja bucătăria neagră mat în L; frigider plin de magneți în cadrele generale. |
+| G22 | Dormitoare | Dormitor cu pat portocaliu și noptiere albastre | 385, 388–392 (5 utilizabile) | **Rezervă:** curat, dar piese puține (pat și noptiere). Cadre: 388, 392, 390, 389. |
+| G29 | Dormitoare | Dormitor cu dulap pe colț gri | 932–938 (6 utilizabile) | Fotografie de familie pe noptieră și rame pe rafturi, în toate cele 4 cadre. Se poate cu retuș. |
+| G30 | Dormitoare | Cameră de copil cu dulap și comodă joasă | 1145, 1163–1166 (4 utilizabile) | Numele copiilor scrise pe perete în cadrele generale; rămân 2 cadre curate. |
+| G33 | Dormitoare | Dormitor cu dulap alb și noptiere | 467–473 (6 utilizabile) | **Rezervă:** dormitor simplu; un cadru are o persoană pe ecranul televizorului. Cadre: 467, 472, 469, 473. |
+| G34 | Dormitoare | Dormitor alb cu corpuri peste pat și dulap glisant | 755, 763–768 (6 utilizabile) | Același model ca dormitorul albastru cu corpuri peste pat (publicat acum), din aceeași casă. |
+| G38 | Dormitoare | Dormitor cu dulap glisant cu oglindă | 252–255 (4 utilizabile) | **Rezervă:** modest, 4 cadre. Cadre: 252, 253, 254, 255. |
+| G39 | Dormitoare | Dormitor de copil cu noptiere suspendate | 261–265 (5 utilizabile) | Piese din colțuri diferite ale camerei; doar 3 cadre curate (261, 263, 264). |
+| G45 | Dormitoare | Apartament mobilat: living, dormitor și dulapuri în decor deschis | 693–712 (20 utilizabile) | Mobilier simplu într-un apartament gol, fără context. Curat: 694, 696, 698, 703, 705, 707. |
+| G46 | Living | Birou cu masă reglabilă și oglindă cu becuri | 383, 393–397 (5 utilizabile) | Ecrane cu sigla unei firme; cadre aglomerate. |
+| G47 | Living | Comodă TV albă cu lumină LED | 387, 427–433 (5 utilizabile) | Persoane pe ecranul televizorului în cadrele principale; sticlă cu etichetă. |
+| G48 | Living | Perete TV alb cu lamele | 847–851 (4 utilizabile) | Desene animate pe ecran în toate cadrele generale și fotografii pe rafturi. |
+| G50 | Living | Cameră de birou cu canapea în nișă | 779, 792–796 (5 utilizabile) | Fotografii de copii pe pervaz și în raft, în toate cele 4 cadre. Se poate cu retuș. |
+| G51 | Living | Birou suspendat | 884, 901–904 (4 utilizabile) | O singură piesă mică; cadre repetitive. |
+| G56 | Living | Birou cu corpuri turcoaz | 757, 774–778 (5 utilizabile) | Birou plin de dosare și hârtii; fotografii pe rafturi. |
+| G58 | Living | Comodă de living cu decor de lemn deschis | 573–576 (4 utilizabile) | O singură piesă, cu sertarele deschise pline. |
+| G59 | Hol și baie | Pantofar și dulap de hol cu oglindă | 422–426 (5 utilizabile) | Cadre aglomerate (încălțăminte, haine); piese mici. |
+| G60 | Hol și baie | Dulapuri de hol și de baie | 859–863 (5 utilizabile) | **Rezervă:** dulapuri simple de hol și de baie. Cadre: 860, 861, 859, 863. |
+| G61 | Hol și baie | Cuier de hol în decor de nuc | 917–921 (5 utilizabile) | Piese mici; cadre de detaliu cu obiecte decorative. |
+| G62 | Hol și baie | Dulapuri bordo | 922–925 (4 utilizabile) | **Rezervă:** culoare distinctă, dar două piese mici. Cadre: 923, 924, 922, 925. |
+| G65 | Hol și baie | Băi cu mobilier alb și de stejar | 960–962, 991–998 (11 utilizabile) | Capace de WC ridicate în aproape toate cadrele; ambalaj cu marcă lângă lavoar. |
+| G67 | Hol și baie | Baie roz cu mobilier alb pe cadru negru | 1183–1186 (4 utilizabile) | Capac de WC ridicat, eticheta producătorului pe blat, raft deschis plin, în toate cadrele cu mobilierul. |
+| G68 | Hol și baie | Dulapuri albe de hol | 1194–1197, 1204 (5 utilizabile) | **Rezervă:** dulapuri albe simple. Cadre: 1196, 1197, 1194, 1204. |
+| G73 | Hol și baie | Mobilier de baie verde și bej | 1091–1092, 1100–1101 (4 utilizabile) | Două măști mici de lavoar. |
+| G75 | Hol și baie | Cuier de hol cu banchetă | 611–616 (5 utilizabile) | Fotografii de familie în toate cadrele generale. |
+
+- **[i] Cele mai ușor de adăugat:** G16 (bucătăria cappuccino cu insulă), apoi rezervele G22, G33, G38, G60, G62, G68 și G45. Nu cer retuș.
+- **[i] Se pot adăuga cu retuș:** G29, G50, G75 (fotografii de familie), G20 (frigider cu magneți).
+- **[i] Cer poze noi:** G65 și G67 (băile), G04 (dressingul de la mansardă).
+- **[i] Neluate în calcul:** 40 de grupuri cu mai puțin de 4 cadre utilizabile și barul negru cu auriu (comercial).
+
+### Verificare
+- **[i] Fișiere:** 448 de imagini în date, 448 pe disc, dimensiuni identice. Fără EXIF, ICC sau XMP. Numele vechi și numele fotografului nu apar în octeți sau în numele fișierelor.
+- **[i] Lint și build:** curate (243 de pagini, 124 de adrese în sitemap).
+- **[i] Pagini parcurse automat:** 53 (homepage, /mobila-la-comanda, /proiecte, cele 6 pagini de categorie și toate cele 44 de proiecte noi), la 1440 px și 390 px. Fără erori în consolă, fără derulare orizontală, un singur `h1`, toate imaginile încărcate.
+- **[i] Uitat pe capturi:** cele 5 pagini de categorie atinse, /proiecte și 6 proiecte noi, la ambele lățimi.
+- **[i] Numărul de proiecte e același peste tot:** 110 pe /proiecte, iar pe paginile de categorie 32, 11, 32, 16, 21 și 4.
+- **[i] Optimizatorul de imagini:** am umplut memoria cache dinainte, cerând pe rând toate cele 448 de imagini la cele 9 lățimi. Cu ea umplută nu s-a blocat nicio imagine. Problema din HOSTING.md, secțiunea 6, rămâne de hotărât.
+
+### Procesare și spațiu
+- **[i] Ca la lotul 1:** metadate șterse, conversie în sRGB, cel mult 2.400 px pe latura mare, JPEG progresiv la calitate 86, `sursa: "arhiva"`.
+- **[i] Spațiu:** `public/` are 144 MB (înainte 68 MB), adică 2,8% din cei 5 GB.

@@ -12,6 +12,7 @@ export default function LogoAntet() {
       role="img"
       aria-label="Amber"
     >
+      <title>Amber</title>
       <path d="M0 700 315 0H443L759 700H623L352 69H404L134 700ZM145 538 180 436H558L593 538Z" fill="#111111" />
       <path
         d="M1008 700V0H1115L1421 511H1365L1666 0H1773L1774 700H1651L1650 193H1676L1420 620H1362L1102 193H1132V700Z"

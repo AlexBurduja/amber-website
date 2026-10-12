@@ -13,9 +13,7 @@ export const metadata = {
 export default function Cookies() {
   return (
     <PaginaText titlu="Cookie-uri" href="/cookies">
-      <p>
-        <Todo>text de verificat de un jurist înainte de lansare</Todo>
-      </p>
+      <Todo ca="p">text de verificat de un jurist înainte de lansare</Todo>
       <p>
         Site-ul nu folosește cookie-uri de analiză a traficului sau de publicitate și nu urmărește
         vizitatorii de la un site la altul.

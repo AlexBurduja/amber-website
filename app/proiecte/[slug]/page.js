@@ -7,7 +7,6 @@ import Buton from "@/components/Buton";
 import Eticheta3D from "@/components/Eticheta3D";
 import CardProiect, { numeTranzitie } from "@/components/CardProiect";
 import PerecheRandare from "@/components/PerecheRandare";
-import Paleta from "@/components/Paleta";
 import BandaOferta from "@/components/BandaOferta";
 import { Galerie, ButonImagine } from "@/components/Galerie";
 import { proiectePublicate } from "@/data/proiecte";
@@ -97,7 +96,6 @@ export default async function PaginaProiect({ params }) {
                 ))}
               </ul>
               <p className={styles.notaMateriale}>Descrise după cum se văd în imagini.</p>
-              <Paleta slug={proiect.slug} />
               <div className={styles.actiuni}>
                 <Buton href="/cerere-oferta">Cere ofertă</Buton>
                 <Link href={cat.pagina} className="link">
