@@ -278,3 +278,8 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* <picture> (components/Imagine.js) nu participă la layout: imaginea se așază ca și cum ar fi singură. */
+picture {
+  display: contents;
+}

@@ -15,11 +15,7 @@ export const metadata = {
   openGraph: og("/cerere-oferta"),
 };
 
-// /cerere-oferta?mobila=Bucătărie preselectează tipul de mobilă (de pe paginile de categorie).
-export default async function CerereOferta({ searchParams }) {
-  const { mobila } = await searchParams;
-  const preselectate = [mobila].flat().filter((m) => tipuriMobila.includes(m));
-
+export default function CerereOferta() {
   return (
     <section className={`container ${styles.pagina}`}>
       <Breadcrumb pasi={[{ nume: "Cere ofertă", href: "/cerere-oferta" }]} />
@@ -34,7 +30,7 @@ export default async function CerereOferta({ searchParams }) {
           </p>
         </div>
         <div className={styles.formular}>
-          <FormularOferta mobilaPreselectata={preselectate} />
+          <FormularOferta />
         </div>
         <div className={styles.dupa}>
           <div className={styles.urmeaza}>

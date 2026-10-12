@@ -727,3 +727,19 @@ Numerele din coloana „Imagini” sunt cele din inventar și de pe planșele di
 ### Procesare și spațiu
 - **[i] Ca la lotul 1:** metadate șterse, conversie în sRGB, cel mult 2.400 px pe latura mare, JPEG progresiv la calitate 86, `sursa: "arhiva"`.
 - **[i] Spațiu:** `public/` are 144 MB (înainte 68 MB), adică 2,8% din cei 5 GB.
+
+## 19. Export static pentru Datahost (cPanel, fără Node)
+
+- **[i] Site static:** `output: "export"`. `npm run build` scrie `out/`, care se urcă în `public_html`. Pașii sunt în `DEPLOY-DATAHOST.md`; `HOSTING.md` e depășit.
+- **[V] Adresele se termină acum în „/”** (`/despre/`, `/proiecte/slug/`). Fiecare pagină e un folder cu `index.html`, deci serverul le servește fără reguli de rescriere. Adresele fără „/” sunt redirecționate. Site-ul nu era încă indexat, deci nu se pierde nimic.
+- **[i] Imagini:** variante AVIF și WebP la 7 lățimi, generate după build de `scripts/dupa-build.mjs` și ținute în `.cache-imagini/`. Pagina le cere prin `<picture>`, cu JPEG-ul original ca rezervă (`components/Imagine.js`). Nu depind de nicio setare a serverului.
+- **[i] Imaginile de share** ale proiectelor sunt fișiere JPEG în `out/og/`, făcute de același script.
+- **[i] Indexare:** am scos `proxy.js` și logica de noindex după domeniu. `robots.txt` are `Allow: /`. `.htaccess` trimite orice alt nume de gazdă la `https://ambermob.ro`.
+- **[i] /proiecte:** filtrele și „Arată mai multe” rulează în browser. HTML-ul static conține lista completă.
+- **[i] Formular:** `public/api/cerere.php` repetă în PHP regulile din `lib/cerere.js` și trimite același email prin SMTP (PHPMailer 6.9.3, inclus în proiect). Datele SMTP stau în `amber-privat/config.php`, în afara `public_html`. Codul Resend e scos.
+- **[V] Regulile formularului sunt acum în două locuri** (`lib/cerere.js` și `cerere.php`). O schimbare într-unul trebuie făcută și în celălalt.
+- **[i] Limitarea de rată:** 5 cereri pe oră pe adresă IP, ținută în fișiere mici în `amber-privat/rata/`.
+- **[V] Cache de 30 de zile pe imagini:** o poză înlocuită sub același nume se vede abia după ce expiră. Soluția: alt nume de fișier.
+- **[i] Date noi în `lib/site.js`,** de completat: CUI, Nr. Reg. Com., sediu social, program showroom. Cât sunt goale, nu apar pe site.
+- **[V] Scriptul de urcare (`npm run urca`) nu a fost rulat pe un server real.** Nu am avut date FTP. La prima rulare face singur o copie a `public_html`.
+- **[i] Testat local** (exportul servit cu PHP, la 390 px): homepage, o categorie, un proiect, /proiecte cu filtre, meniul de mobil și două trimiteri ale formularului către un server SMTP de test, una cu două poze și un plan PDF.

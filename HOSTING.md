@@ -1,5 +1,7 @@
 # Ce are nevoie site-ul ca să ruleze pe alt server decât Vercel
 
+> **DEPĂȘIT (octombrie 2026).** Site-ul e acum un export static, găzduit pe Datahost. Vezi `DEPLOY-DATAHOST.md`. Ce urmează descrie varianta veche, cu server Node.
+
 Notițe pentru mutarea pe ambermob.ro. **Nimic din ce e mai jos nu a fost schimbat în cod;** e doar inventarul. Starea descrisă e cea de la 11 octombrie 2026 (Next.js 16.3.8, React 19.2.8).
 
 ## Pe scurt

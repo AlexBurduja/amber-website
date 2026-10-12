@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import Breadcrumb from "@/components/Breadcrumb";
 import Buton from "@/components/Buton";
 import CumLucram from "@/components/CumLucram";

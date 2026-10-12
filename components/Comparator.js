@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import { useRef } from "react";
 import Eticheta3D from "./Eticheta3D";
 import styles from "./Comparator.module.css";

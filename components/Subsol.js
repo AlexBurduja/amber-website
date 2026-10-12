@@ -114,8 +114,10 @@ export default function Subsol() {
         <p>
           © {new Date().getFullYear()} {site.numeLegal}
           {contact.cui ? `, CUI ${contact.cui}` : null}
+          {contact.regCom ? `, Nr. Reg. Com. ${contact.regCom}` : null}
+          {contact.sediuSocial ? `, sediu social: ${contact.sediuSocial}` : null}
         </p>
-        {!contact.cui ? <Todo>CUI</Todo> : null}
+        {!contact.cui ? <Todo>CUI, Nr. Reg. Com., sediu social</Todo> : null}
         <ul className={styles.legale}>
           <li>
             <Link href="/politica-de-confidentialitate">Politica de confidențialitate</Link>

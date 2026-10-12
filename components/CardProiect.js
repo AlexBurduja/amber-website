@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import { ViewTransition } from "react";
 import CardMedia from "./CardMedia";
 import Eticheta3D from "./Eticheta3D";

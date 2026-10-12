@@ -44,3 +44,11 @@ export-complet/
 
 # planșe de lucru cu poze din arhivele noi (case ale clienților; nu se publică)
 capturi/media-noi/
+
+# export static: variantele de imagine generate la build
+/.cache-imagini/
+
+# urcarea pe hosting: datele FTP, evidența fișierelor urcate, copia de siguranță a public_html
+/ftp.local.json
+/.urcare.json
+/backup-public_html/

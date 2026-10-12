@@ -3,7 +3,8 @@ import Antet from "@/components/Antet";
 import Subsol from "@/components/Subsol";
 import JsonLd from "@/components/JsonLd";
 import CtaMobil from "@/components/CtaMobil";
-import { contact, gazdeIndexabile, site } from "@/lib/site";
+import { contact, site } from "@/lib/site";
+import { og } from "@/lib/metadata";
 import { schemaFirma } from "@/lib/schema";
 import "./globals.css";
 
@@ -42,9 +43,8 @@ export const viewport = {
   themeColor: "#FAF8F4",
 };
 
-// Pe alte gazde decât ambermob.ro adaugă și eticheta meta robots (antetul X-Robots-Tag din proxy.js
-// e mecanismul principal). Apoi marchează prima încărcare din sesiune, pentru sertarul din logo.
-const scriptLogo = `try{if(${JSON.stringify(gazdeIndexabile)}.indexOf(location.hostname)<0){var m=document.createElement("meta");m.name="robots";m.content="noindex, nofollow";document.head.appendChild(m)}}catch(e){}try{if(!sessionStorage.getItem("amber-logo")){document.documentElement.classList.add("logo-prima");sessionStorage.setItem("amber-logo","1")}}catch(e){}`;
+// Marchează prima încărcare din sesiune, pentru sertarul din logo.
+const scriptLogo = `try{if(!sessionStorage.getItem("amber-logo")){document.documentElement.classList.add("logo-prima");sessionStorage.setItem("amber-logo","1")}}catch(e){}`;
 
 export default function RootLayout({ children }) {
   return (

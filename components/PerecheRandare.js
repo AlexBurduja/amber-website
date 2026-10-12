@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import Eticheta3D from "./Eticheta3D";
 import Comparator from "./Comparator";
 import styles from "./PerecheRandare.module.css";

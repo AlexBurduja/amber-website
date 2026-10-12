@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Pause, Play } from "@phosphor-icons/react/dist/ssr";

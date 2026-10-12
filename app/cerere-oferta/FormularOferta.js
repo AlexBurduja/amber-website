@@ -3,7 +3,7 @@
 import { startTransition, useActionState, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CheckCircle, WarningCircle } from "@phosphor-icons/react/dist/ssr";
-import { trimiteCerere } from "./actions";
+import { trimiteCerere } from "@/lib/trimite-cerere";
 import {
   MB,
   bugete,
@@ -39,12 +39,24 @@ function descris(...ids) {
   return lista.length ? lista.join(" ") : undefined;
 }
 
-export default function FormularOferta({ mobilaPreselectata = [] }) {
+export default function FormularOferta() {
   const [stare, trimite, seTrimite] = useActionState(trimiteCerere, { stare: "nou" });
   const valori = stare.valori ?? {};
 
-  const [domeniu, setDomeniu] = useState(mobilaPreselectata.length > 1 ? "mai-multe" : "o-camera");
-  const [mobila, setMobila] = useState(mobilaPreselectata.slice(0, mobilaPreselectata.length > 1 ? undefined : 1));
+  const [domeniu, setDomeniu] = useState("o-camera");
+  const [mobila, setMobila] = useState([]);
+
+  // /cerere-oferta/?mobila=Bucătărie preselectează tipul de mobilă (de pe paginile de categorie).
+  // Pagina e statică, deci adresa se citește în browser, după încărcare.
+  useEffect(() => {
+    const cerute = new URLSearchParams(window.location.search).getAll("mobila").filter((m) => tipuriMobila.includes(m));
+    if (!cerute.length) return;
+    // Adresa există doar în browser, deci starea se poate seta abia aici, o singură dată.
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setDomeniu(cerute.length > 1 ? "mai-multe" : "o-camera");
+    setMobila(cerute);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
   const [forma, setForma] = useState(null);
   const [nrPereti, setNrPereti] = useState(1);
   const [poze, setPoze] = useState([]);
@@ -164,8 +176,8 @@ export default function FormularOferta({ mobilaPreselectata = [] }) {
     setEroriClient((v) => ({ ...v, [camp]: undefined }));
   }
 
-  // Cu JavaScript, cererea pleacă de aici, nu prin `action`: așa React nu golește formularul după
-  // un răspuns cu eroare, iar alegerile și fișierele rămân. Fără JavaScript, merge prin `action`.
+  // Cererea pleacă de aici, nu prin `action`: așa React nu golește formularul după
+  // un răspuns cu eroare, iar alegerile și fișierele rămân.
   // Înainte de trimitere, câmpurile obligatorii și dimensiunile se verifică în browser.
   function laTrimitere(e) {
     e.preventDefault();

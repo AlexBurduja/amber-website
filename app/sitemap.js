@@ -1,5 +1,7 @@
 import { categorii, proiectePublicate } from "@/data/proiecte";
-import { site } from "@/lib/site";
+import { adresaPagina, site } from "@/lib/site";
+
+export const dynamic = "force-static";
 
 export default function sitemap() {
   const pagini = [
@@ -15,9 +17,9 @@ export default function sitemap() {
   ];
 
   return [
-    ...pagini.map((p) => ({ url: `${site.url}${p.url}`, priority: p.priority })),
+    ...pagini.map((p) => ({ url: adresaPagina(p.url), priority: p.priority })),
     ...proiectePublicate.map((p) => ({
-      url: `${site.url}/proiecte/${p.slug}`,
+      url: adresaPagina(`/proiecte/${p.slug}`),
       priority: 0.6,
       images: p.imagini.slice(0, 3).map((i) => `${site.url}${i.src}`),
     })),

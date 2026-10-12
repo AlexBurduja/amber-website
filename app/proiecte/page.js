@@ -1,8 +1,6 @@
-import Link from "next/link";
-import CardProiect from "@/components/CardProiect";
 import BandaOferta from "@/components/BandaOferta";
 import Breadcrumb from "@/components/Breadcrumb";
-import ListaTreptata from "@/components/ListaTreptata";
+import ListaProiecte from "./ListaProiecte";
 import { categorii, proiectePublicate } from "@/data/proiecte";
 import { areCuloarea, familiiCuloare } from "@/lib/culori";
 import { inCategorie } from "@/lib/proiecte";
@@ -17,27 +15,21 @@ export const metadata = {
   openGraph: og("/proiecte"),
 };
 
-function ordoneaza(lista) {
-  // Pozele reale întâi; proiectele care au doar randări la final.
-  return [...lista].sort((a, b) => Number(a.proiect3d) - Number(b.proiect3d));
-}
+// Lista trimisă în browser, pentru filtre: doar ce le trebuie cardurilor.
+// Pozele reale întâi; proiectele care au doar randări la final.
+const proiecte = [...proiectePublicate]
+  .sort((a, b) => Number(a.proiect3d) - Number(b.proiect3d))
+  .map((p) => ({
+    slug: p.slug,
+    titlu: p.titlu,
+    categorie: p.categorie,
+    categorii: categorii.filter((c) => inCategorie(p, c.slug)).map((c) => c.slug),
+    culori: familiiCuloare.filter((c) => areCuloarea(p.slug, c.slug)).map((c) => c.slug),
+    // Cardul folosește prima poză și, la hover, următoarea poză reală.
+    imagini: [p.imagini[0], p.imagini.find((i, n) => n > 0 && i.tip === "foto_reala")].filter(Boolean),
+  }));
 
-function link({ categorie, culoare }) {
-  const q = new URLSearchParams();
-  if (categorie) q.set("categorie", categorie);
-  if (culoare) q.set("culoare", culoare);
-  const s = q.toString();
-  return s ? `/proiecte?${s}` : "/proiecte";
-}
-
-export default async function Proiecte({ searchParams }) {
-  const sp = await searchParams;
-  const activa = categorii.find((c) => c.slug === sp.categorie);
-  const culoare = familiiCuloare.find((c) => c.slug === sp.culoare);
-
-  const dupaCategorie = activa ? proiectePublicate.filter((p) => inCategorie(p, activa.slug)) : proiectePublicate;
-  const lista = ordoneaza(culoare ? dupaCategorie.filter((p) => areCuloarea(p.slug, culoare.slug)) : dupaCategorie);
-
+export default function Proiecte() {
   return (
     <>
       <section className={`container ${styles.antet}`}>
@@ -47,105 +39,9 @@ export default async function Proiecte({ searchParams }) {
           Mobilă făcută pe comandă pentru case, apartamente și spații comerciale. Proiectele care au
           doar randări sunt marcate „Proiect 3D”.
         </p>
-
-        <nav aria-label="Filtrează după categorie" className={styles.filtre}>
-          <ul>
-            <li>
-              <Link
-                href={link({ culoare: culoare?.slug })}
-                scroll={false}
-                className={styles.filtru}
-                aria-current={!activa ? "page" : undefined}
-              >
-                Toate
-              </Link>
-            </li>
-            {categorii.map((c) => {
-              const n = proiectePublicate.filter(
-                (p) => inCategorie(p, c.slug) && (!culoare || areCuloarea(p.slug, culoare.slug)),
-              ).length;
-              return (
-                <li key={c.slug}>
-                  <Link
-                    href={link({ categorie: c.slug, culoare: culoare?.slug })}
-                    scroll={false}
-                    className={styles.filtru}
-                    aria-current={activa?.slug === c.slug ? "page" : undefined}
-                  >
-                    {c.nume} <span className={styles.numar}>{n}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        <nav aria-label="Filtrează după culoare" className={styles.filtreCuloare}>
-          <p className={styles.etichetaFiltru}>Culoare</p>
-          <ul>
-            {familiiCuloare.map((c) => {
-              const n = dupaCategorie.filter((p) => areCuloarea(p.slug, c.slug)).length;
-              const aleasa = culoare?.slug === c.slug;
-              if (!n && !aleasa) return null;
-              return (
-                <li key={c.slug}>
-                  <Link
-                    href={link({ categorie: activa?.slug, culoare: aleasa ? undefined : c.slug })}
-                    scroll={false}
-                    className={`${styles.filtru} ${styles.filtruCuloare}`}
-                    aria-current={aleasa ? "true" : undefined}
-                    aria-label={aleasa ? `${c.nume}, filtru activ. Elimină filtrul` : `${c.nume}, ${n} proiecte`}
-                  >
-                    <span className={styles.mostra} style={{ backgroundColor: c.mostra }} aria-hidden="true" />
-                    {c.nume}
-                    <span className={styles.numar}>{n}</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
       </section>
 
-      <section className="container" aria-label="Lista de proiecte">
-        <p className={styles.rezultat} aria-live="polite">
-          {lista.length} {lista.length === 1 ? "proiect" : "proiecte"}
-          {activa ? `: ${activa.nume.toLowerCase()}` : ""}
-          {culoare ? `, culoare: ${culoare.nume.toLowerCase()}` : ""}.
-          {activa || culoare ? (
-            <>
-              {" "}
-              <Link href="/proiecte" scroll={false} className="link">
-                Elimină filtrele
-              </Link>
-            </>
-          ) : null}
-        </p>
-        {activa ? (
-          <p className={styles.legatura}>
-            Despre {activa.nume.toLowerCase()} la comandă, materiale și ce influențează prețul:{" "}
-            <Link href={activa.pagina} className="link">
-              pagina {activa.nume}
-            </Link>
-            .
-          </p>
-        ) : null}
-        {lista.length ? (
-          <ListaTreptata key={`${activa?.slug}-${culoare?.slug}`} className={styles.grila}>
-            {lista.map((p) => (
-              <CardProiect key={p.slug} proiect={p} nivelTitlu={2} />
-            ))}
-          </ListaTreptata>
-        ) : (
-          <p className={styles.gol}>
-            Nu avem încă proiecte publicate cu această combinație.{" "}
-            <Link href={link({ categorie: activa?.slug })} scroll={false} className="link">
-              Vezi toate culorile
-            </Link>
-            .
-          </p>
-        )}
-      </section>
+      <ListaProiecte proiecte={proiecte} categorii={categorii} familii={familiiCuloare} />
 
       <div className={styles.spatiu} />
       <BandaOferta />

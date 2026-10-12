@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import Link from "next/link";
 import { etape, modeleFrezare, pozeFabrica } from "@/data/fabrica";
 import { experienta } from "@/lib/site";

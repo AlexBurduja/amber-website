@@ -1,0 +1,8 @@
+{
+  "gazda": "ftp.ambermob.ro",
+  "port": 21,
+  "utilizator": "UTILIZATOR-FTP",
+  "parola": "PAROLA-FTP",
+  "securizat": true,
+  "director": "public_html"
+}

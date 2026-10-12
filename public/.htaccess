@@ -1,0 +1,59 @@
+# Amber, site static pe hosting cPanel / LiteSpeed. Fișierul ajunge în public_html/ la fiecare urcare.
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # O singură adresă: https://ambermob.ro, fără www (dintr-un singur pas).
+  # /.well-known/ rămâne accesibil pe http, pentru emiterea certificatului SSL.
+  RewriteCond %{HTTP_HOST} !^ambermob\.ro$ [NC,OR]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteRule ^ https://ambermob.ro%{REQUEST_URI} [R=301,L]
+
+  # O singură formă a adreselor: paginile se termină în „/”.
+  # /pagina/index.html și /pagina.html duc la /pagina/; /pagina primește „/” la final.
+  RewriteCond %{THE_REQUEST} \s/(.*/)?index\.html[?\s] [NC]
+  RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.+[^/])$ /$1/ [R=301,L]
+
+  # Fișiere care nu se servesc: cele ascunse (.htaccess, .user.ini, .env), copii și fișiere de lucru.
+  RewriteRule (^|/)\.(?!well-known/) - [F]
+  RewriteRule \.(?:ini|log|sh|sql|bak|old|orig|swp|md|lock|ya?ml)$ - [F,NC]
+  RewriteRule ^api/lib/ - [F]
+</IfModule>
+
+# Tipuri de fișiere pe care serverul poate să nu le știe.
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# Cache în browser.
+<IfModule mod_headers.c>
+  # Paginile: mereu verificate, ca o urcare nouă să se vadă imediat.
+  <FilesMatch "\.(?:html|txt|xml|webmanifest)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Imagini, fonturi, iconițe: 30 de zile. O poză înlocuită sub același nume se vede abia după
+  # ce expiră; dacă trebuie să apară imediat, dă-i alt nume.
+  <FilesMatch "\.(?:avif|webp|jpe?g|png|svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  # Fișierele generate de build au nume unic la fiecare versiune: un an, fără reverificare.
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml application/manifest+json
+</IfModule>

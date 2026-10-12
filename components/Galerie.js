@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, X } from "@phosphor-icons/react/dist/ssr";
 import styles from "./Galerie.module.css";

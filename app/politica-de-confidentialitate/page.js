@@ -20,7 +20,10 @@ export default function PoliticaConfidentialitate() {
       <h2>Cine prelucrează datele</h2>
       <p>
         Operatorul datelor este {site.numeLegal}
-        {contact.cui ? `, CUI ${contact.cui}` : ""}, cu sediul în {site.oras}. <Todo>CUI și adresa sediului</Todo>
+        {contact.cui ? `, CUI ${contact.cui}` : ""}
+        {contact.regCom ? `, Nr. Reg. Com. ${contact.regCom}` : ""}, cu sediul{" "}
+        {contact.sediuSocial ? `social în ${contact.sediuSocial}` : `în ${site.oras}`}.{" "}
+        {!contact.cui || !contact.sediuSocial ? <Todo>CUI, Nr. Reg. Com. și sediul social</Todo> : null}
       </p>
 
       <h2>Ce date colectăm</h2>
@@ -48,8 +51,8 @@ export default function PoliticaConfidentialitate() {
 
       <h2>Cui le transmitem</h2>
       <p>
-        Cererea ajunge la noi pe email, printr-un furnizor de servicii de email care acționează în
-        numele nostru. <Todo>numele furnizorului de email și al firmei de hosting</Todo> Nu vindem și
+        Cererea ajunge la noi pe email. Site-ul și serverul de email sunt găzduite de Cloud Data
+        Hosting S.R.L. (Datahost), care prelucrează datele în numele nostru. Nu vindem și
         nu închiriem datele tale.
       </p>
 

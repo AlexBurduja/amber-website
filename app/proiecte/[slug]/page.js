@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ViewTransition } from "react";
-import Image from "next/image";
+import Image from "@/components/Imagine";
 import { notFound } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumb";
 import Buton from "@/components/Buton";
@@ -28,7 +28,14 @@ export async function generateMetadata({ params }) {
     title: scurteaza(proiect.titlu, 52),
     description: scurteaza(primaPropozitie(proiect.descriere), 155),
     alternates: { canonical: `/proiecte/${slug}` },
-    openGraph: { type: "article", locale: "ro_RO", siteName: "Amber Creativity", url: `/proiecte/${slug}` },
+    // Imaginea de share e generată la build de scripts/dupa-build.mjs.
+    openGraph: {
+      type: "article",
+      locale: "ro_RO",
+      siteName: "Amber Creativity",
+      url: `/proiecte/${slug}`,
+      images: [{ url: `/og/${slug}.jpg`, width: 1200, height: 630, alt: proiect.imagini[0].alt }],
+    },
   };
 }
 
