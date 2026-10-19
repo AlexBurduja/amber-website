@@ -175,3 +175,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+.piese {
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+
+.listaPiese {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-top: 20px;
+  padding-left: 0;
+}

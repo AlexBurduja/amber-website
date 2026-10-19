@@ -55,6 +55,9 @@ export default function PoliticaConfidentialitate() {
         Hosting S.R.L. (Datahost), care prelucrează datele în numele nostru. Nu vindem și
         nu închiriem datele tale.
       </p>
+      <p>
+        Folosim Umami pentru statistici anonime de vizitare, fără cookie-uri și fără date personale.
+      </p>
 
       <h2>Cât timp le păstrăm</h2>
       <p>

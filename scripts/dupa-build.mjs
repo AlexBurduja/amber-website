@@ -1,5 +1,5 @@
 // Rulează după `next build` (npm run build) și completează exportul static din out/:
-//   out/imagini/…   variantele AVIF și WebP ale pozelor din public/proiecte și public/fabrica,
+//   out/imagini/…   variantele AVIF și WebP ale pozelor din public/proiecte, public/fabrica și public/showroom,
 //                   la lățimile din lib/imagini.js (fără mărire peste original);
 //   out/og/…        imaginile de share (1200×630) ale proiectelor publicate;
 //   copii ale fișierelor de preîncărcare a paginilor, sub numele cerut de browser.
@@ -49,7 +49,7 @@ if (!existsSync(OUT)) {
 const sarcini = [];
 let facute = 0;
 
-for (const dir of ["proiecte", "fabrica"]) {
+for (const dir of ["proiecte", "fabrica", "showroom"]) {
   for (const sursa of await fisiereJpg(join(PUBLIC, dir))) {
     const src = sursa.slice(PUBLIC.length).replaceAll("\\", "/");
     for (const latime of latimi) {

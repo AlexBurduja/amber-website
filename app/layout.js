@@ -3,6 +3,7 @@ import Antet from "@/components/Antet";
 import Subsol from "@/components/Subsol";
 import JsonLd from "@/components/JsonLd";
 import CtaMobil from "@/components/CtaMobil";
+import Statistici from "@/components/Statistici";
 import { contact, site } from "@/lib/site";
 import { og } from "@/lib/metadata";
 import { schemaFirma } from "@/lib/schema";
@@ -49,6 +50,10 @@ const scriptLogo = `try{if(!sessionStorage.getItem("amber-logo")){document.docum
 export default function RootLayout({ children }) {
   return (
     <html lang="ro" className={`${montserrat.variable} ${dmSans.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Statistici anonime de vizitare (Umami Cloud), fără cookie-uri. */}
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="0ce4f673-7207-4736-86c2-ba67f55c04d6" />
+      </head>
       <body>
         {/* Rulează înainte de prima afișare: noindex pe alte gazde decât ambermob.ro și marcajul
             primei încărcări din sesiune, ca sertarul din logo să iasă o singură dată. */}
@@ -63,6 +68,7 @@ export default function RootLayout({ children }) {
         </main>
         <Subsol />
         <CtaMobil telefon={contact.telefon} />
+        <Statistici />
         <JsonLd date={schemaFirma()} />
       </body>
     </html>

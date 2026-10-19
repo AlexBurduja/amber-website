@@ -1,4 +1,5 @@
-import { categorii, proiectePublicate } from "@/data/proiecte";
+import { categorii, paginiProduse, proiectePublicate } from "@/data/proiecte";
+import { ghiduri } from "@/data/ghiduri";
 import { adresaPagina, site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -8,7 +9,10 @@ export default function sitemap() {
     { url: "/", priority: 1 },
     { url: "/mobila-la-comanda", priority: 0.9 },
     ...categorii.map((c) => ({ url: c.pagina, priority: 0.9 })),
+    ...paginiProduse.map((c) => ({ url: c.pagina, priority: 0.8 })),
     { url: "/proiecte", priority: 0.8 },
+    { url: "/ghiduri", priority: 0.7 },
+    ...ghiduri.map((g) => ({ url: `/ghiduri/${g.slug}`, priority: 0.6 })),
     { url: "/cerere-oferta", priority: 0.7 },
     { url: "/contact", priority: 0.6 },
     { url: "/despre", priority: 0.5 },

@@ -181,3 +181,20 @@
   color: var(--stone);
   font-size: 0.9375rem;
 }
+
+.pozeShowroom {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.pozaShowroom {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--raza);
+}

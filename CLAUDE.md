@@ -135,9 +135,10 @@ Site-ul pornește de la zero în Google. Ținta principală: **„mobilă la com
 ### Structura propusă (de confirmat)
 - `/` – acasă
 - `/mobila-la-comanda` – pagina principală de servicii
-- `/bucatarii-la-comanda`, `/dressinguri-la-comanda`, `/dormitoare-la-comanda`, `/living-la-comanda`, `/mobilier-hol-si-baie`, `/mobilier-comercial` – câte o pagină pe tip de produs, doar pentru categoriile cu proiecte reale
+- `/bucatarii-la-comanda`, `/dressinguri-la-comanda`, `/dormitoare-la-comanda`, `/living-la-comanda`, `/mobilier-hol-la-comanda`, `/mobilier-baie-la-comanda`, `/mobilier-comercial` – câte o pagină pe tip de produs, doar pentru categoriile cu proiecte reale
 - `/proiecte` și `/proiecte/[slug]`
 - `/despre`, `/contact`, `/cerere-oferta`
+- `/mobilier-hol-si-baie/` nu mai există: are redirect 301 în .htaccess spre `/mobilier-hol-la-comanda/`. Nu se recreează.
 
 Fiecare pagină de categorie are text util și original (cum lucrăm, materiale, ce influențează prețul, întrebări frecvente) plus proiectele din categoria respectivă. Fără pagini goale sau duplicate (ex. câte o pagină pentru fiecare oraș din țară cu același text). Livrarea și montajul în toată țara se explică într-o secțiune clară, nu prin pagini clonate.
 

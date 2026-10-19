@@ -96,6 +96,14 @@ export default async function PaginaProiect({ params }) {
                 </p>
               ) : null}
               <p className={styles.descriere}>{proiect.descriere}</p>
+              {proiect.colaborare ? (
+                <p className={styles.colaborare}>
+                  Design interior:{" "}
+                  <a href={proiect.colaborare.url} rel="noopener" className="link">
+                    {proiect.colaborare.nume}
+                  </a>
+                </p>
+              ) : null}
               <h2 className={styles.subtitlu}>Materiale și finisaje</h2>
               <ul className={styles.materiale}>
                 {proiect.materiale.map((m) => (

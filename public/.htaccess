@@ -8,6 +8,9 @@ AddDefaultCharset UTF-8
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Pagina veche „hol și baie” a fost împărțită: holul a primit adresa nouă, baia are pagina ei.
+  RewriteRule ^mobilier-hol-si-baie/?$ https://ambermob.ro/mobilier-hol-la-comanda/ [R=301,L]
+
   # O singură adresă: https://ambermob.ro, fără www (dintr-un singur pas).
   # /.well-known/ rămâne accesibil pe http, pentru emiterea certificatului SSL.
   RewriteCond %{HTTP_HOST} !^ambermob\.ro$ [NC,OR]

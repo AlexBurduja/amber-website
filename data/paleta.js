@@ -377,6 +377,29 @@ export const culori = {
     "gri",
     "lemn"
   ],
+  "casa-luce-paulesti": [
+    "alb",
+    "bej",
+    "lemn"
+  ],
+  "casa-magnolia-paulesti": [
+    "bej",
+    "gri",
+    "negru",
+    "lemn"
+  ],
+  "apartament-plaza-bucuresti": [
+    "alb",
+    "bej",
+    "lemn"
+  ],
+  "apartament-regim-hotelier": [
+    "alb",
+    "bej",
+    "negru",
+    "albastru",
+    "vii"
+  ],
   "baie-maro-mat-doua-lavoare": [
     "alb"
   ],
@@ -470,5 +493,14 @@ export const culori = {
   ],
   "cafenea-caramida-mobilier-negru-proiect-3d": [
     "negru"
+  ],
+  "clinica-stomatologica-campina": [
+    "negru",
+    "vii"
+  ],
+  "florarie-topoloveni": [
+    "negru",
+    "lemn",
+    "vii"
   ]
 };

@@ -8,7 +8,7 @@ import Fabrica from "@/components/Fabrica";
 import MaterialeFeronerie from "@/components/MaterialeFeronerie";
 import IntrebariFrecvente from "@/components/IntrebariFrecvente";
 import BandaOferta from "@/components/BandaOferta";
-import { categorii } from "@/data/proiecte";
+import { categorii, paginiProduse } from "@/data/proiecte";
 import { continutCategorii } from "@/data/categorii";
 import { imagineDupaNumar, numarProiecte } from "@/lib/proiecte";
 import styles from "./page.module.css";
@@ -31,8 +31,8 @@ const rezumate = {
     "Dulapuri, paturi tapițate, noptiere, camere de copii și paturi rabatabile pentru camere mici.",
   living:
     "Pereți TV, comode, biblioteci, vitrine încastrate, mese din lemn masiv și piese din metal.",
-  "hol-si-baie":
-    "Dulapuri de hol, mobilier sub scară, cuiere și mobilier de baie cu blat suspendat.",
+  hol: "Dulapuri de hol, bănci cu pantofar, cuiere, mobilier sub scară și balustrade.",
+  baie: "Corpuri suspendate, blat pentru lavoar, oglinzi iluminate și coloane înalte.",
   comercial: "Birouri, recepții, showroom-uri și rafturi pentru spații de vânzare.",
 };
 
@@ -152,6 +152,24 @@ export default function MobilaLaComanda() {
               </li>
             );
           })}
+        </ul>
+      </section>
+
+      <section className={`container ${styles.piese}`} aria-labelledby="piese-titlu">
+        <h2 id="piese-titlu">Pe tip de piesă</h2>
+        <ul className={styles.listaPiese}>
+          {paginiProduse.map((p) => (
+            <li key={p.slug}>
+              <Link href={p.pagina} className="link">
+                {continutCategorii[p.slug].h1}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link href="/ghiduri" className="link">
+              Ghiduri practice despre mobila la comandă
+            </Link>
+          </li>
         </ul>
       </section>
 

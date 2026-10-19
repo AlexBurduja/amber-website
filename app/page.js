@@ -33,9 +33,10 @@ const mozaic = [
   { categorie: "bucatarii", zona: "a", imagine: ["bucatarie-verde-inchis-riflaj-insula", 1] },
   { categorie: "dormitoare", zona: "b", imagine: ["dormitor-mansarda-dulapuri-crem", 1] },
   { categorie: "living", zona: "c", imagine: ["perete-tv-alb-nisa-neagra", 1] },
-  { categorie: "hol-si-baie", zona: "d", imagine: ["baie-bej-riflaj-blat-lemn", 1] },
-  { categorie: "dressinguri", zona: "e", imagine: ["dressing-birou-masa-machiaj", 2] },
-  { categorie: "comercial", zona: "f", imagine: ["birou-executiv-alb-lucios-furnir", 1] },
+  { categorie: "hol", zona: "d", imagine: ["hol-dulapuri-bej-nisa-stejar-etajera-colt", 1] },
+  { categorie: "baie", zona: "e", imagine: ["baie-bej-riflaj-blat-lemn", 1] },
+  { categorie: "dressinguri", zona: "f", imagine: ["dressing-birou-masa-machiaj", 2] },
+  { categorie: "comercial", zona: "g", imagine: ["birou-executiv-alb-lucios-furnir", 1] },
 ];
 
 const proiecteAlese = [

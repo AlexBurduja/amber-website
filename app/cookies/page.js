@@ -8,7 +8,7 @@ export const metadata = {
   alternates: { canonical: "/cookies" },
 };
 
-// TODO: de actualizat dacă se adaugă analiză de trafic (ex. Google Analytics) sau pixeli de social media.
+// TODO: de actualizat dacă se adaugă analiză cu cookie-uri (ex. Google Analytics) sau pixeli de social media.
 // În acel caz e nevoie și de un banner de consimțământ înainte de încărcarea lor.
 export default function Cookies() {
   return (
@@ -17,6 +17,10 @@ export default function Cookies() {
       <p>
         Site-ul nu folosește cookie-uri de analiză a traficului sau de publicitate și nu urmărește
         vizitatorii de la un site la altul.
+      </p>
+      <p>
+        Folosim Umami pentru statistici anonime de vizitare. Umami nu folosește cookie-uri și nu
+        colectează date personale.
       </p>
 
       <h2>Harta de pe pagina de contact</h2>

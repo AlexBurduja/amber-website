@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import Todo from "./Todo";
-import { categorii } from "@/data/proiecte";
+import { categorii, paginiProduse } from "@/data/proiecte";
 import { adresaText, contact, site, linkTelefon, linkWhatsapp } from "@/lib/site";
 import styles from "./Subsol.module.css";
 
 const linkuriSite = [
   { href: "/mobila-la-comanda", eticheta: "Mobilă la comandă" },
   { href: "/proiecte", eticheta: "Proiecte" },
+  { href: "/ghiduri", eticheta: "Ghiduri" },
   { href: "/despre", eticheta: "Despre" },
   { href: "/contact", eticheta: "Contact" },
   { href: "/cerere-oferta", eticheta: "Cere ofertă" },
@@ -42,7 +43,7 @@ export default function Subsol() {
         <nav aria-label="Categorii" className={styles.coloana}>
           <h2 className={`eticheta ${styles.titlu}`}>Mobilă la comandă</h2>
           <ul>
-            {categorii.map((c) => (
+            {[...categorii, ...paginiProduse].map((c) => (
               <li key={c.slug}>
                 <Link href={c.pagina}>{c.nume}</Link>
               </li>

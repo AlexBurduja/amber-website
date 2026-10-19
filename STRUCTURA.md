@@ -99,7 +99,7 @@ Același tip de cerere are aceeași etichetă peste tot:
 | `/dressinguri-la-comanda` | Categorie (1 proiect + dulapuri) | Dressinguri la comandă | Dressinguri și dulapuri la comandă \| Amber |
 | `/dormitoare-la-comanda` | Categorie (16) | Dormitoare la comandă | Dormitoare și paturi tapițate la comandă \| Amber |
 | `/living-la-comanda` | Categorie (10) | Mobilier de living la comandă | Mobilier living la comandă: pereți TV, biblioteci \| Amber |
-| `/mobilier-hol-si-baie` | Categorie (12) | Mobilier de hol și baie la comandă | Mobilier hol și baie la comandă \| Amber |
+| `/mobilier-hol-la-comanda` și `/mobilier-baie-la-comanda` | Categorie (13 hol, 8 baie) | Mobilier de hol și baie la comandă | Mobilier hol și baie la comandă \| Amber |
 | `/mobilier-comercial` | Categorie (5) | Mobilier comercial la comandă | Mobilier comercial la comandă: birouri, recepții \| Amber |
 | `/proiecte` | Toate proiectele | Proiecte | Proiecte de mobilă la comandă \| Amber |
 | `/proiecte/[slug]` | 64 de pagini de proiect | titlul proiectului | `{titlu} \| Amber` (scurtat la 60) |

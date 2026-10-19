@@ -7,7 +7,10 @@ import IntrebariFrecvente from "./IntrebariFrecvente";
 import MaterialeFeronerie from "./MaterialeFeronerie";
 import BandaOferta from "./BandaOferta";
 import { continutCategorii } from "@/data/categorii";
-import { categorie, grupeaza, imagineDupaNumar, proiectePentruCategorie } from "@/lib/proiecte";
+import JsonLd from "./JsonLd";
+import TextCuLinkuri from "./TextCuLinkuri";
+import { grupeaza, imagineDupaNumar, paginaCategorie, proiectePentruCategorie } from "@/lib/proiecte";
+import { schemaColectie } from "@/lib/schema";
 import styles from "./PaginaCategorie.module.css";
 import { og } from "@/lib/metadata";
 
@@ -16,13 +19,16 @@ const tipCerere = {
   dressinguri: "?mobila=Dressing",
   dormitoare: "?mobila=Dormitor",
   living: "?mobila=Living",
-  "hol-si-baie": "?mobila=Hol&mobila=Baie",
+  hol: "?mobila=Hol",
+  baie: "?mobila=Baie",
   comercial: "?mobila=Comercial",
+  "paturi-tapitate": "?mobila=Dormitor",
+  "bucatarii-insula": "?mobila=Bucătărie",
 };
 
 export function metadataCategorie(slug) {
   const c = continutCategorii[slug];
-  const cat = categorie(slug);
+  const cat = paginaCategorie(slug);
   return {
     title: c.title,
     description: c.description,
@@ -45,11 +51,12 @@ function GrilaProiecte({ proiecte }) {
 
 export default function PaginaCategorie({ slug }) {
   const c = continutCategorii[slug];
-  const cat = categorie(slug);
+  const cat = paginaCategorie(slug);
   const { proprii, secundare } = proiectePentruCategorie(slug);
   const reale = proprii.filter((p) => !p.proiect3d);
   const doar3d = proprii.filter((p) => p.proiect3d);
-  const grupuri = grupeaza(reale);
+  // Paginile pe tip de piesă adună proiecte din mai multe categorii: fără subgrupurile lor.
+  const grupuri = cat.proiecte ? [] : grupeaza(reale);
   const img = imagineDupaNumar(...c.imagine);
 
   return (
@@ -67,7 +74,7 @@ export default function PaginaCategorie({ slug }) {
             <span className={styles.sertar} aria-hidden="true" />
             <p className={styles.intro}>{c.intro}</p>
             <div className={styles.actiuni}>
-              <Buton href={`/cerere-oferta${tipCerere[slug]}`}>Cere ofertă</Buton>
+              <Buton href={`/cerere-oferta${tipCerere[slug] ?? ""}`}>Cere ofertă</Buton>
               <a href="#proiecte" className="link">
                 Vezi {proprii.length + secundare.length}{" "}
                 {proprii.length + secundare.length === 1 ? "proiect" : "proiecte"}
@@ -129,7 +136,9 @@ export default function PaginaCategorie({ slug }) {
             <h2 id="ghid-titlu">{c.cumLucram.titlu}</h2>
             <div className={styles.paragrafe}>
               {c.cumLucram.paragrafe.map((p) => (
-                <p key={p}>{p}</p>
+                <p key={p}>
+                  <TextCuLinkuri text={p} />
+                </p>
               ))}
             </div>
           </div>
@@ -137,7 +146,9 @@ export default function PaginaCategorie({ slug }) {
             <h2>{c.materiale.titlu}</h2>
             <div className={styles.paragrafe}>
               {c.materiale.paragrafe.map((p) => (
-                <p key={p}>{p}</p>
+                <p key={p}>
+                  <TextCuLinkuri text={p} />
+                </p>
               ))}
             </div>
             <h3 className={styles.titluFactori}>Ce influențează prețul</h3>
@@ -159,9 +170,37 @@ export default function PaginaCategorie({ slug }) {
 
       {c.grupuriMateriale ? <MaterialeFeronerie grupuri={c.grupuriMateriale} fundal="white" /> : null}
 
-      <IntrebariFrecvente intrebari={c.intrebari} />
+      <IntrebariFrecvente intrebari={c.intrebari} schema />
+
+      <section className={`container ${styles.legaturi}`} aria-labelledby="legaturi-titlu">
+        <h2 id="legaturi-titlu">Vezi și</h2>
+        <ul className={styles.listaLegaturi}>
+          {(c.vezi ?? []).map((l) => (
+            <li key={l.href}>
+              <Link href={l.href} className="link">
+                {l.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className={`text-lung ${styles.contactNota}`}>
+          Preferi să vorbim direct? Pe pagina de{" "}
+          <Link href="/contact" className="link">
+            contact
+          </Link>{" "}
+          găsești telefonul și adresa showroom-ului.
+        </p>
+      </section>
 
       <BandaOferta />
+      <JsonLd
+        date={schemaColectie({
+          nume: c.h1,
+          descriere: c.description,
+          pagina: cat.pagina,
+          proiecte: [...proprii, ...secundare],
+        })}
+      />
     </>
   );
 }

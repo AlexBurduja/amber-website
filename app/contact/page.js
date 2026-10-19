@@ -11,6 +11,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import Buton from "@/components/Buton";
 import Todo from "@/components/Todo";
 import Harta from "./Harta";
+import Image from "@/components/Imagine";
+import { pozeShowroom } from "@/data/showroom";
 import {
   adresaText as formateazaAdresa,
   contact,
@@ -163,6 +165,21 @@ export default function Contact() {
               </a>
             </p>
           ) : null}
+          <ul className={styles.pozeShowroom}>
+            {pozeShowroom.map((p, i) => (
+              <li key={p.src}>
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  width={p.latime}
+                  height={p.inaltime}
+                  loading={i < 2 ? "eager" : "lazy"}
+                  sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                  className={styles.pozaShowroom}
+                />
+              </li>
+            ))}
+          </ul>
           {adresaText ? <Harta adresa={adresaText} /> : null}
         </div>
       </section>

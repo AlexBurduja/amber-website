@@ -4,6 +4,7 @@ import { startTransition, useActionState, useEffect, useLayoutEffect, useRef, us
 import Link from "next/link";
 import { CheckCircle, WarningCircle } from "@phosphor-icons/react/dist/ssr";
 import { trimiteCerere } from "@/lib/trimite-cerere";
+import { eveniment } from "@/components/Statistici";
 import {
   MB,
   bugete,
@@ -102,6 +103,7 @@ export default function FormularOferta() {
 
   useEffect(() => {
     if (stare.stare === "trimis") {
+      eveniment("cerere-trimisa");
       confirmare.current?.focus();
       return;
     }

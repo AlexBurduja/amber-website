@@ -1,7 +1,11 @@
 import { Plus } from "@phosphor-icons/react/dist/ssr";
+import JsonLd from "./JsonLd";
+import TextCuLinkuri from "./TextCuLinkuri";
+import { schemaFaq } from "@/lib/schema";
 import styles from "./IntrebariFrecvente.module.css";
 
-export default function IntrebariFrecvente({ intrebari, titlu = "Întrebări frecvente" }) {
+// schema: adaugă și datele structurate FAQPage (pentru paginile de categorie).
+export default function IntrebariFrecvente({ intrebari, titlu = "Întrebări frecvente", schema = false }) {
   if (!intrebari?.length) return null;
   return (
     <section className={styles.sectiune} aria-labelledby="intrebari-titlu">
@@ -16,13 +20,16 @@ export default function IntrebariFrecvente({ intrebari, titlu = "Întrebări fre
               </summary>
               <div className={styles.raspuns}>
                 {(Array.isArray(q.raspuns) ? q.raspuns : [q.raspuns]).map((p) => (
-                  <p key={p}>{p}</p>
+                  <p key={p}>
+                    <TextCuLinkuri text={p} />
+                  </p>
                 ))}
               </div>
             </details>
           ))}
         </div>
       </div>
+      {schema ? <JsonLd date={schemaFaq(intrebari)} /> : null}
     </section>
   );
 }

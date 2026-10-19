@@ -10,7 +10,7 @@ return [
     'smtp_port' => 465,                      // 465 cu 'ssl' sau 587 cu 'tls'
     'smtp_securizare' => 'ssl',
     'smtp_utilizator' => 'cereri@ambermob.ro',
-    'smtp_parola' => 'PAROLA-CONTULUI-DE-EMAIL',
+    'smtp_parola' => 'Cereriambermob1!',
 
     'de_la' => 'cereri@ambermob.ro',         // expeditorul; trebuie să fie contul de mai sus
     'de_la_nume' => 'Site Amber',

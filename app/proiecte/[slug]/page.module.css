@@ -178,3 +178,9 @@
     gap: 28px 12px;
   }
 }
+
+.colaborare {
+  margin-top: 16px;
+  color: var(--stone);
+  font-size: 0.9375rem;
+}

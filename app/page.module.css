@@ -108,7 +108,7 @@
   grid-template-areas:
     "a b c"
     "a d e"
-    "a d f";
+    "a f g";
   grid-template-rows: repeat(3, 230px);
   gap: 20px;
   margin-top: 40px;
@@ -193,7 +193,7 @@
       "a a"
       "b c"
       "d e"
-      "d f";
+      "f g";
     grid-template-rows: 340px repeat(3, 200px);
   }
 }
